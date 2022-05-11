@@ -401,19 +401,6 @@ export default function Dashboard(props) {
 					</Grid>
 				))}
 			</Grid>
-			<Grid container spacing={4}>
-				<Grid item xs={12}>
-					{/* <Widget
-						title="Section A Students"
-						upperTitle
-						noBodyPadding
-						bodyClass={classes.tableWidget}
-					>
-						<Table data={mock.table} />
-					</Widget> */}
-					<StudentTable />
-				</Grid>
-			</Grid>
 		</>
 	);
 }
