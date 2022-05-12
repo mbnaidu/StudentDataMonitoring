@@ -34,6 +34,8 @@ import Dot from "../../components/Sidebar/components/Dot";
 import Table from "./components/Table/Table";
 import BigStat from "./components/BigStat/BigStat";
 import StudentTable from "../../components/StudentTable";
+import SectionPop from "../../components/SectionPop";
+import YearPop from "../../components/YearPop";
 
 const mainChartData = getMainChartData();
 const PieChartData = [
@@ -52,13 +54,7 @@ export default function Dashboard(props) {
 
 	return (
 		<>
-			<PageTitle title="Dashboard" button={<Button
-				variant="contained"
-				size="medium"
-				color="secondary"
-			>
-				Change Branch
-			</Button>} />
+			<PageTitle title="Dashboard" button={(<> <SectionPop />, <YearPop /> </>)} />
 			<Grid container spacing={4}>
 				<Grid item lg={3} md={4} sm={6} xs={12}>
 					<Widget
