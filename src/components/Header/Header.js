@@ -7,7 +7,6 @@ import {
 	Menu,
 	MenuItem,
 	Fab,
-	Link
 } from "@material-ui/core";
 import {
 	Menu as MenuIcon,
@@ -16,7 +15,6 @@ import {
 	Person as AccountIcon,
 	Search as SearchIcon,
 	Send as SendIcon,
-	ArrowBack as ArrowBackIcon,
 	Close as CloseIcon,
 } from "@material-ui/icons";
 import classNames from "classnames";
@@ -25,7 +23,7 @@ import classNames from "classnames";
 import useStyles from "./styles";
 
 // components
-import { Badge, Typography, Button } from "../Wrappers";
+import { Badge, Typography } from "../Wrappers";
 import Notification from "../Notification/Notification";
 import UserAvatar from "../UserAvatar/UserAvatar";
 

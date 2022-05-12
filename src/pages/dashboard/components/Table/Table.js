@@ -5,7 +5,6 @@ import {
 	TableHead,
 	TableBody,
 	TableCell,
-	Chip,
 	Accordion,
 	AccordionSummary,
 	Typography,
@@ -14,23 +13,10 @@ import {
 import {
 	ArrowDownward as ExpandMoreIcon,
 } from "@material-ui/icons";
-import useStyles from "../../styles";
 import { Cell, Pie, PieChart } from "recharts";
 
-const states = {
-	sent: "success",
-	pending: "warning",
-	declined: "secondary",
-};
-const datas = [
-	{ id: "1", name: "L1", value: 75 },
-	{ id: "2", name: "L2", value: 25 }
-];
 export default function TableComponent({ data }) {
-	const classes = useStyles();
 	var keys = Object.keys(data[0]).map(i => i.toUpperCase());
-	// keys.shift(); // delete "id" key
-
 	return (
 		<Table className="mb-0" style={{ height: 100 }}>
 			<TableHead>

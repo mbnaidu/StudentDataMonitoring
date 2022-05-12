@@ -1,7 +1,7 @@
 import React from 'react';
 import DataTable from 'mui-datatables';
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
-import { CloudDownload, Close } from '@material-ui/icons';
+import { CloudDownload } from '@material-ui/icons';
 
 const data = [
 	["18PA1A1201", "A", "90%", "2-B"],

@@ -1,25 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Grid,
-	LinearProgress,
-	Select,
-	OutlinedInput,
-	MenuItem,
-	Button
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import {
 	ResponsiveContainer,
-	ComposedChart,
-	AreaChart,
-	LineChart,
-	Line,
-	Area,
 	PieChart,
 	Pie,
 	Cell,
-	YAxis,
-	XAxis,
 } from "recharts";
 
 // styles
@@ -31,27 +19,25 @@ import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
 import { Typography } from "../../components/Wrappers";
 import Dot from "../../components/Sidebar/components/Dot";
-import Table from "./components/Table/Table";
 import BigStat from "./components/BigStat/BigStat";
-import StudentTable from "../../components/StudentTable";
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
+import axios from "axios";
 
-const mainChartData = getMainChartData();
-const PieChartData = [
-	{ name: "Section A", value: 50, color: "primary" },
-	{ name: "Section B", value: 70, color: "secondary" },
-	{ name: "Section C", value: 100, color: "warning" },
-	{ name: "Section D", value: 90, color: "success" },
-];
 
 export default function Dashboard(props) {
 	var classes = useStyles();
 	var theme = useTheme();
-
-	// local
-	var [mainChartState, setMainChartState] = useState("monthly");
-
+	const [totalITStudentsData, setTotalITStudentsData] = useState();
+	const PieChartData = [
+		{ name: "Section A", value: 50, color: "primary" },
+		{ name: "Section B", value: 70, color: "secondary" },
+		{ name: "Section C", value: 100, color: "warning" },
+		{ name: "Section D", value: 90, color: "success" },
+	];
+	useEffect(() => {
+		axios.get('http://localhost:3001/getAllStudents').then((response) => { console.log(response.data); }).catch((error) => { console.log(error); })
+	}, [])
 	return (
 		<>
 			<PageTitle title="Dashboard" button={(<> <SectionPop />, <YearPop /> </>)} />
@@ -421,21 +407,4 @@ function getRandomData(length, min, max, multiplier = 10, maxDiff = 10) {
 
 		return { value: randomValue };
 	});
-}
-
-function getMainChartData() {
-	var resultArray = [];
-	var tablet = getRandomData(31, 3500, 6500, 7500, 1000);
-	var desktop = getRandomData(31, 1500, 7500, 7500, 1500);
-	var mobile = getRandomData(31, 1500, 7500, 7500, 1500);
-
-	for (let i = 0; i < tablet.length; i++) {
-		resultArray.push({
-			tablet: tablet[i].value,
-			desktop: desktop[i].value,
-			mobile: mobile[i].value,
-		});
-	}
-
-	return resultArray;
 }

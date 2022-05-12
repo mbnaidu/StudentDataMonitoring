@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, Select, MenuItem, Input } from "@material-ui/core";
+import React from "react";
+import { Grid, } from "@material-ui/core";
 import { ArrowForward as ArrowForwardIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { BarChart, Bar } from "recharts";
@@ -16,9 +16,6 @@ export default function BigStat(props) {
 	var { product, color, totalStrength, allPass, backlogs, backlog } = props;
 	var classes = useStyles();
 	var theme = useTheme();
-
-	// local
-	var [value, setValue] = useState("daily");
 
 	return (
 		<Widget

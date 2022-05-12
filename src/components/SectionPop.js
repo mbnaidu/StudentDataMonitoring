@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, OutlinedInput, MenuItem, FormControl, Select, TextField } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, OutlinedInput, FormControl, Select } from "@material-ui/core";
 
 export default function SectionPop({ onSectionChange }) {
     const [open, setOpen] = React.useState(false);

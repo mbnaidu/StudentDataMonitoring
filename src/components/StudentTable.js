@@ -13,7 +13,6 @@ import {
     IconButton,
 } from "@material-ui/core";
 import {
-    KeyboardArrowDown as KeyboardArrowDownIcon,
     KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@material-ui/icons";
 import { Cell, Pie, PieChart } from 'recharts';

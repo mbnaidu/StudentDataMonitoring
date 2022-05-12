@@ -12,7 +12,6 @@ import SendIcon from '@material-ui/icons/Send';
 import '../typography/typography.css';
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function TypographyPage(props) {
@@ -26,18 +25,6 @@ export default function TypographyPage(props) {
 	// useEffect(() => {
 	// 	axios.get('http://localhost:3001/getAllStudents').then((response) => { console.log(response.data); }).catch((error) => { console.log(error); })
 	// }, [])
-	const updateIsDisabled = (name, value) => {
-		console.log(name, value)
-		if (name === 'section') {
-			setSection(value)
-		}
-		if (name === 'year') {
-			setYear(value)
-		}
-		if (fileName.indexOf('.xlsx') > 0 && section && year) {
-			setIsDisabled(false)
-		}
-	}
 	const emptyStates = () => {
 		setSection('');
 		setYear('');

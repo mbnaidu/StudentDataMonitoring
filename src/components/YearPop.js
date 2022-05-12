@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, OutlinedInput, MenuItem, FormControl, Select } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, OutlinedInput, FormControl, Select } from "@material-ui/core";
 
 export default function YearPop({ onYearChange }) {
     const [open, setOpen] = React.useState(false);
@@ -9,7 +9,7 @@ export default function YearPop({ onYearChange }) {
         var d = (new Date().getFullYear())
         var elements = [''];
         var i;
-        for (i = d - 4; i < d + 4; i++) {
+        for (i = d - 4; i < d + 1; i++) {
             elements.push(i)
         }
         setYears(elements);
