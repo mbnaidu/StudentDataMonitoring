@@ -13,6 +13,7 @@ import '../typography/typography.css';
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 export default function TypographyPage(props) {
 	var classes = useStyles();
@@ -22,10 +23,55 @@ export default function TypographyPage(props) {
 	const [section, setSection] = useState('');
 	const [year, setYear] = useState('');
 	const [isDisabled, setIsDisabled] = useState(true);
-	// useEffect(() => {
-	// 	axios.get('http://localhost:3001/getAllStudents').then((response) => { console.log(response.data); }).catch((error) => { console.log(error); })
-	// }, [])
+	const [allSelectedStudents, setAllSelectedStudents] = useState(null);
+	useEffect(() => {
+		if (section && !year) {
+			const data = {
+				section: section,
+				year: year
+			}
+			axios.post('http://localhost:3001/getbysection', { data })
+				.then((response) => {
+					response.data !== null ? setAllSelectedStudents(response.data) : setAllSelectedStudents(null);
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+		}
+		else if (!section && year) {
+			const data = {
+				section: section,
+				year: year
+			}
+			axios.post('http://localhost:3001/getbyyear', { data })
+				.then((response) => {
+					console.log('++++++++++++', response.data);
+					response.data !== null ? setAllSelectedStudents([response.data]) : setAllSelectedStudents(null);
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+		}
+		else if (section && year) {
+			const data = {
+				section: section,
+				year: year
+			}
+			axios.post('http://localhost:3001/getbysectionandyear', { data })
+				.then((response) => {
+					console.log('++++++++++++', response.data);
+					response.data !== null ? setAllSelectedStudents([response.data]) : setAllSelectedStudents(null);
+				})
+				.catch((error) => {
+					console.log('++++++++++++', error);
+				})
+		}
+		else {
+			setAllSelectedStudents(null)
+		}
+	}, [section, year])
 	const emptyStates = () => {
+		setAllSelectedStudents(null)
 		setSection('');
 		setYear('');
 		setFileData({ preview: '', data: '' });
@@ -35,10 +81,10 @@ export default function TypographyPage(props) {
 		emptyStates();
 	}, [])
 	useEffect(() => {
-		if (fileName.indexOf('.xlsx') > 0 && section && year) {
+		if (fileData && section && year) {
 			setIsDisabled(false)
 		}
-	}, [fileName, section, year])
+	}, [fileName, section, year, status])
 	const handleSubmit = async (e) => {
 		setStatus(null)
 		e.preventDefault()
@@ -86,31 +132,35 @@ export default function TypographyPage(props) {
 				progressClassName={classes.notificationProgress} />
 			<Grid container spacing={4}>
 				<Grid item xs={12} md={12}>
-					<Widget title="Student List" disableWidgetMenu>
-						{status === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
-							<div className={classes.dashedBorder} style={{ flexDirection: 'row' }}>
-								<div className="container">
-									<form className="form">
-										<div className="file-upload-wrapper" data-text={fileName}>
-											<input type="file" accept='.xlsx, .xls, .csv' onChange={handleFileChange}></input>
-										</div>
-									</form>
-								</div>
-								<div className="container" style={{ marginTop: '10px' }}>
-									<SectionPop onSectionChange={handleSectionChange} />
-								</div>
-								<div className="container" style={{ marginTop: '10px' }}>
-									<YearPop onYearChange={handleYearChange} />
-								</div>
-								<div className="fs-title"><Button disabled={isDisabled} variant="contained" onClick={handleSubmit} style={{ backgroundColor: !isDisabled ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
-									Submit
-								</Button></div>
-							</div>)}
-					</Widget>
+					{allSelectedStudents === null &&
+						<Widget title="Student List" disableWidgetMenu>
+							{status === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
+								<div className={classes.dashedBorder} style={{ flexDirection: 'row' }}>
+									<div className="container">
+										<form className="form">
+											<div className="file-upload-wrapper" data-text={fileName}>
+												<input type="file" accept='.xlsx, .xls, .csv' onChange={handleFileChange}></input>
+											</div>
+										</form>
+									</div>
+									{/* <div className="container" style={{ marginTop: '10px' }}>
+										<SectionPop onSectionChange={handleSectionChange} />
+									</div>
+									<div className="container" style={{ marginTop: '10px' }}>
+										<YearPop onYearChange={handleYearChange} />
+									</div> */}
+									<div className="fs-title"><Button disabled={fileData && section && year ? false : true} variant="contained" onClick={handleSubmit} style={{ backgroundColor: fileData && section && year ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+										Submit
+									</Button></div>
+								</div>)}
+						</Widget>}
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<Widget title="1-1 Semester" disableWidgetMenu>
-
+						<div className={classes.dashedBorder}>
+							Regular - upload
+							Supply - Upload - count
+						</div>
 					</Widget>
 				</Grid>
 				<Grid item xs={12} md={6}>

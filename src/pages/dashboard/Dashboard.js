@@ -65,7 +65,12 @@ export default function Dashboard(props) {
 			}
 			axios.post('http://localhost:3001/getbyyear', { data })
 				.then((response) => {
-					response.data !== null ? setAllSelectedStudents([response.data]) : setAllSelectedStudents(null);
+					if (response.data) {
+						setAllSelectedStudents([response.data])
+					}
+					else {
+						setAllSelectedStudents(null)
+					}
 				})
 				.catch((error) => {
 					console.log(error);
@@ -78,6 +83,7 @@ export default function Dashboard(props) {
 			}
 			axios.post('http://localhost:3001/getbysectionandyear', { data })
 				.then((response) => {
+					console.log('++++++++++++', response.data);
 					response.data !== null ? setAllSelectedStudents([response.data]) : setAllSelectedStudents(null);
 				})
 				.catch((error) => {
