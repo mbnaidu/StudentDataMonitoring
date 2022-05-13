@@ -70,15 +70,13 @@ export default function Tables(props) {
 				fullName: member.fullName,
 				percentage: member.percentage,
 				gender: member.gender,
-				backlogs: member.backlogs
+				backlogs: member.backlogs,
+				semesters: member.semesters
 			})
 		})
 		setStudentData(sample);
 	}, [membersData])
-	// console.log(membersData)
-	const subjects = [
-		{ sem: '1-1', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3 }, { sem: '1-2', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '2-1', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '2-2', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '3-1', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '3-2', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '4-1', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3, sub6: 2 }, { sem: '4-2', sub1: 3, sub2: 2, sub3: 1, sub4: 3, sub5: 3 }
-	]
+
 	return (
 		<>
 			{studentsData && <DataTable
@@ -108,7 +106,7 @@ export default function Tables(props) {
 												<TableHead>
 													<TableRow>
 														<TableCell align="center">Semester</TableCell>
-														<TableCell align="center">Subject 1</TableCell>
+														<TableCell align="center">{JSON.stringify(studentsData[rowMeta.dataIndex].semesters)}</TableCell>
 														<TableCell align="center">Subject 2</TableCell>
 														<TableCell align="center">Subject 3</TableCell>
 														<TableCell align="center">Subject 4</TableCell>
@@ -117,15 +115,15 @@ export default function Tables(props) {
 													</TableRow>
 												</TableHead>
 												<TableBody>
-													{subjects.map((historyRow) => (
-														<TableRow key={historyRow.sem}>
-															<TableCell align="center">{historyRow.sem}</TableCell>
-															<TableCell align="center">{historyRow.sub1 ? historyRow.sub1 : 'No Subject'}</TableCell>
-															<TableCell align="center">{historyRow.sub2 ? historyRow.sub2 : 'No Subject'}</TableCell>
-															<TableCell align="center">{historyRow.sub3 ? historyRow.sub3 : 'No Subject'}</TableCell>
-															<TableCell align="center">{historyRow.sub4 ? historyRow.sub4 : 'No Subject'}</TableCell>
-															<TableCell align="center">{historyRow.sub5 ? historyRow.sub5 : 'No Subject'}</TableCell>
-															<TableCell align="center">{historyRow.sub6 ? historyRow.sub6 : 'No Subject'}</TableCell>
+													{studentsData[rowMeta.dataIndex].semesters.map((historyRow) => (
+														<TableRow key={JSON.stringify(historyRow)}>
+															<TableCell align="center">sub1</TableCell>
+															<TableCell align="center">sub2</TableCell>
+															<TableCell align="center">sub3</TableCell>
+															<TableCell align="center">sub4</TableCell>
+															<TableCell align="center">sub5</TableCell>
+															<TableCell align="center">sub6</TableCell>
+															<TableCell align="center">sub7</TableCell>
 														</TableRow>
 													))}
 												</TableBody>

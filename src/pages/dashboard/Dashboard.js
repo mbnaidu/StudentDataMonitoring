@@ -125,19 +125,19 @@ export default function Dashboard(props) {
 								>
 									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Class
+											Class Pass%
 										</Typography>
 										<Typography size="md">{details.percentage}%</Typography>
 									</Grid>
 									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Male
+											Male Pass%
 										</Typography>
 										<Typography size="md">{details.malePercentage}%</Typography>
 									</Grid>
 									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Female
+											Female Pass%
 										</Typography>
 										<Typography size="md">{details.femalePercentage}%</Typography>
 									</Grid>
