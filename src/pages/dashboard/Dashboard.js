@@ -32,63 +32,41 @@ export default function Dashboard(props) {
 	const [section, setSection] = useState('');
 	const [year, setYear] = useState('');
 	const [allSelectedStudents, setAllSelectedStudents] = useState(null);
-	const PieChartData = [
-		{ name: "Section A", value: 50, color: "primary" },
-		{ name: "Section B", value: 70, color: "secondary" },
-		{ name: "Section C", value: 100, color: "warning" },
-		{ name: "Section D", value: 90, color: "success" },
-	];
+	const [genders, setGenders] = useState([{ id: 'male', value: 'Male', color: 'primary' }, { id: 'female', value: 'Female', color: 'secondary' }]);
 	const handleSectionChange = (e) => {
 		setSection(e)
 	}
 	const handleYearChange = (e) => {
 		setYear(e)
 	}
+	const commonFunc = (route) => {
+		const data = {
+			section: section,
+			year: year
+		}
+		axios.post(`http://localhost:3001/${route}`, { data })
+			.then((response) => {
+				if (response.data.length > 0) {
+					setAllSelectedStudents(response.data)
+				}
+				else {
+					setAllSelectedStudents(null)
+				}
+			})
+			.catch((error) => {
+				setAllSelectedStudents(null);
+				console.log(error);
+			})
+	}
 	useEffect(() => {
 		if (section && !year) {
-			const data = {
-				section: section,
-				year: year
-			}
-			axios.post('http://localhost:3001/getbysection', { data })
-				.then((response) => {
-					response.data !== null ? setAllSelectedStudents(response.data) : setAllSelectedStudents(null);
-				})
-				.catch((error) => {
-					console.log(error);
-				})
+			commonFunc('getbysection');
 		}
 		else if (!section && year) {
-			const data = {
-				section: section,
-				year: year
-			}
-			axios.post('http://localhost:3001/getbyyear', { data })
-				.then((response) => {
-					if (response.data) {
-						setAllSelectedStudents([response.data])
-					}
-					else {
-						setAllSelectedStudents(null)
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-				})
+			commonFunc('getbyyear');
 		}
 		else if (section && year) {
-			const data = {
-				section: section,
-				year: year
-			}
-			axios.post('http://localhost:3001/getbysectionandyear', { data })
-				.then((response) => {
-					console.log('++++++++++++', response.data);
-					response.data !== null ? setAllSelectedStudents([response.data]) : setAllSelectedStudents(null);
-				})
-				.catch((error) => {
-					console.log(error);
-				})
+			commonFunc('getbysectionandyear');
 		}
 		else {
 			setAllSelectedStudents(null)
@@ -111,26 +89,31 @@ export default function Dashboard(props) {
 								upperTitle
 								bodyClass={classes.fullHeightBody}
 								className={classes.card}
+								disableWidgetMenu
 							>
 								<div className={classes.visitsNumberContainer}>
 									<Grid container item alignItems={"center"}>
 										<Grid item xs={6}>
 											<Typography size="xl" weight="medium" noWrap>
-												{details.students.length}
+												{`${details.students.length} - ${details.section}`}
 											</Typography>
 										</Grid>
 										<Grid item xs={6}>
-											<div className={classes.pieChartLegendWrapper}>
-												<div key={'secondary'} className={classes.legendItemContainer}>
-													<Dot color={'secondary'} />
-													<Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
-														&nbsp;{`${details.section}`}&nbsp;
-													</Typography>
-													<Typography color="text" colorBrightness="secondary">
-														&nbsp;{50}
-													</Typography>
-												</div>
-											</div>
+											{genders.map((gender) => {
+												return (
+													<div key={gender.id} className={classes.pieChartLegendWrapper}>
+														<div className={classes.legendItemContainer}>
+															<Dot color={gender.color} />
+															<Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
+																&nbsp;{`${gender.value}`}&nbsp;
+															</Typography>
+															<Typography color="text" colorBrightness="secondary">
+																&nbsp;{details[gender.id]}
+															</Typography>
+														</div>
+													</div>
+												)
+											})}
 										</Grid>
 									</Grid>
 								</div>
