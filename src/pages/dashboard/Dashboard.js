@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-	Grid,
 	Button,
+	Grid,
 } from "@material-ui/core";
-import { useTheme } from "@material-ui/styles";
-import {
-	ResponsiveContainer,
-	PieChart,
-	Pie,
-	Cell,
-} from "recharts";
-
 // styles
 import useStyles from "./styles";
 
 // components
-import mock from "./mock";
 import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
 import { Typography } from "../../components/Wrappers";
@@ -24,15 +15,17 @@ import BigStat from "./components/BigStat/BigStat";
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
 import axios from "axios";
+import Tables from "../tables/Tables";
 
 
 export default function Dashboard(props) {
 	var classes = useStyles();
-	var theme = useTheme();
 	const [section, setSection] = useState('');
+	const [sectionDetails, setSectionDetails] = useState(null)
 	const [year, setYear] = useState('');
 	const [allSelectedStudents, setAllSelectedStudents] = useState(null);
-	const [genders, setGenders] = useState([{ id: 'male', value: 'Male', color: 'primary' }, { id: 'female', value: 'Female', color: 'secondary' }]);
+	const [membersData, setMembersData] = useState(null)
+	const genders = ([{ id: 'male', value: 'Male', color: 'primary' }, { id: 'female', value: 'Female', color: 'secondary' }]);
 	const handleSectionChange = (e) => {
 		setSection(e)
 	}
@@ -59,6 +52,8 @@ export default function Dashboard(props) {
 			})
 	}
 	useEffect(() => {
+		setSectionDetails(null);
+		setMembersData(null)
 		if (section && !year) {
 			commonFunc('getbysection');
 		}
@@ -71,7 +66,10 @@ export default function Dashboard(props) {
 		else {
 			setAllSelectedStudents(null)
 		}
-	}, [section, year])
+	}, [section, year]);
+	const handleMembersClick = (e) => {
+		setMembersData(e)
+	}
 	return (
 		<>
 			<PageTitle title="Dashboard" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
@@ -83,7 +81,7 @@ export default function Dashboard(props) {
 				</Grid>}
 				{allSelectedStudents && allSelectedStudents.map((details) => {
 					return (
-						<Grid key={details.isPrev} item lg={3} md={4} sm={6} xs={12}>
+						<Grid key={details._id} item lg={3} md={4} sm={6} xs={12}>
 							<Widget
 								title={`${details.year} Batch Students`}
 								upperTitle
@@ -94,9 +92,11 @@ export default function Dashboard(props) {
 								<div className={classes.visitsNumberContainer}>
 									<Grid container item alignItems={"center"}>
 										<Grid item xs={6}>
-											<Typography size="xl" weight="medium" noWrap>
-												{`${details.students.length} - ${details.section}`}
-											</Typography>
+											<Button onClick={() => { setSectionDetails(details) }} >
+												<Typography size="xl" weight="medium" noWrap>
+													{`${details.students.length} - ${details.section}`}
+												</Typography>
+											</Button>
 										</Grid>
 										<Grid item xs={6}>
 											{genders.map((gender) => {
@@ -123,29 +123,23 @@ export default function Dashboard(props) {
 									justify="space-between"
 									alignItems="center"
 								>
-									<Grid item xs={3}>
+									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Section A
+											Class
 										</Typography>
-										<Typography size="md">35%</Typography>
+										<Typography size="md">{details.percentage}%</Typography>
 									</Grid>
-									<Grid item xs={3}>
+									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Section B
+											Male
 										</Typography>
-										<Typography size="md">25%</Typography>
+										<Typography size="md">{details.malePercentage}%</Typography>
 									</Grid>
-									<Grid item xs={3}>
+									<Grid item xs={4}>
 										<Typography color="text" colorBrightness="secondary" noWrap>
-											Section C
+											Female
 										</Typography>
-										<Typography size="md">45%</Typography>
-									</Grid>
-									<Grid item xs={3}>
-										<Typography color="text" colorBrightness="secondary" noWrap>
-											Section D
-										</Typography>
-										<Typography size="md">50%</Typography>
+										<Typography size="md">{details.femalePercentage}%</Typography>
 									</Grid>
 								</Grid>
 							</Widget>
@@ -153,14 +147,54 @@ export default function Dashboard(props) {
 					)
 				})}
 			</Grid>
-			<PageTitle title="Section A" />
-			<Grid container spacing={4}>
-				{mock.bigStat.map(stat => (
-					<Grid item md={4} sm={6} xs={12} key={stat.product}>
-						<BigStat {...stat} />
+			{sectionDetails && <><PageTitle title={`Section ${sectionDetails.section}`} />
+				<Grid container spacing={4}>
+					<Grid item md={4} sm={6} xs={12}>
+						<BigStat {...(
+							{
+								product: "All",
+								color: "success",
+								totalStrength: sectionDetails.male + sectionDetails.female,
+								allPass: `${(sectionDetails.male + sectionDetails.female) - (sectionDetails.maleBacklogs + sectionDetails.femaleBacklogs)}`,
+								percentage: sectionDetails.percentage,
+								backlogs: `${sectionDetails.femaleBacklogs + sectionDetails.maleBacklogs}`,
+								students: sectionDetails.students
+							})
+						} handleMembersClick={handleMembersClick} />
 					</Grid>
-				))}
-			</Grid>
+					<Grid item md={4} sm={6} xs={12}>
+						<BigStat {...(
+							{
+								product: "Male",
+								color: "primary",
+								totalStrength: sectionDetails.male,
+								allPass: `${sectionDetails.male - sectionDetails.maleBacklogs}`,
+								percentage: sectionDetails.malePercentage,
+								backlogs: sectionDetails.maleBacklogs,
+								students: sectionDetails.students.filter((student) => student.gender === ('M' || 'Male' || 'male' || 'm'))
+							})
+						} handleMembersClick={handleMembersClick} />
+					</Grid>
+					<Grid item md={4} sm={6} xs={12}>
+						<BigStat {...(
+							{
+								product: "Female",
+								color: "secondary",
+								totalStrength: sectionDetails.female,
+								allPass: `${sectionDetails.female - sectionDetails.femaleBacklogs}`,
+								percentage: sectionDetails.femalePercentage,
+								backlogs: sectionDetails.femaleBacklogs,
+								students: sectionDetails.students.filter((student) => student.gender === ('F' || 'Female' || 'female' || 'f'))
+							})
+						} handleMembersClick={handleMembersClick} />
+					</Grid>
+				</Grid>
+			</>}
+			{membersData &&
+				<>
+					<PageTitle title={`Students Data`} />
+					<Tables membersData={membersData} />
+				</>}
 		</>
 	);
 }

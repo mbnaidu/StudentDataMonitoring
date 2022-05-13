@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, } from "@material-ui/core";
+import { Button, Grid, } from "@material-ui/core";
 import { ArrowForward as ArrowForwardIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { BarChart, Bar } from "recharts";
@@ -13,7 +13,7 @@ import Widget from "../../../../components/Widget";
 import { Typography } from "../../../../components/Wrappers";
 
 export default function BigStat(props) {
-	var { product, color, totalStrength, allPass, backlogs, backlog } = props;
+	var { product, color, totalStrength, allPass, backlogs, students, handleMembersClick } = props;
 	var classes = useStyles();
 	var theme = useTheme();
 
@@ -29,9 +29,11 @@ export default function BigStat(props) {
 		>
 			<div className={classes.totalValueContainer}>
 				<div className={classes.totalValue}>
-					<Typography size="xxl" color="text" colorBrightness="secondary">
-						{totalStrength}
-					</Typography>
+					<Button onClick={() => { handleMembersClick(students) }}>
+						<Typography size="xxl" color="text" colorBrightness="secondary">
+							{totalStrength}
+						</Typography>
+					</Button>
 				</div>
 				<BarChart width={150} height={70} data={getRandomData()}>
 					<Bar
@@ -63,19 +65,6 @@ export default function BigStat(props) {
 					</Grid>
 					<Typography size="sm" color="text" colorBrightness="secondary">
 						Backlogs
-					</Typography>
-				</div>
-				<div className={classnames(classes.statCell, classes.borderRight)}>
-					<Grid container alignItems="center">
-						<Typography variant="h6">
-							{backlog}
-						</Typography>
-						<ArrowForwardIcon
-							className={classnames(classes.profitArrowDanger)}
-						/>
-					</Grid>
-					<Typography size="sm" color="text" colorBrightness="secondary">
-						1 Backlog
 					</Typography>
 				</div>
 			</div>
