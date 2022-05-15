@@ -102,6 +102,7 @@ export default function TypographyPage(props) {
 		formData.append('section', section)
 		formData.append('year', year)
 		formData.append('isPrev', section + year)
+		formData.append('semNumber', 'sem1Data')
 		try {
 			const res = await axios.post(
 				"http://localhost:3001/uploadResultPDF",
