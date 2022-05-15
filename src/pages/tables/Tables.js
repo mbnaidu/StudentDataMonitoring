@@ -60,7 +60,6 @@ export default function Tables(props) {
 	const { membersData } = props;
 	const [loading, setLoading] = useState(null);
 	const [studentsData, setStudentData] = useState(null);
-	const [semesterData, setSemesterData] = useState(null)
 	useEffect(() => {
 		setLoading(null);
 		var sample = []
@@ -77,6 +76,46 @@ export default function Tables(props) {
 		setStudentData(sample);
 	}, [membersData])
 
+	const renderExtraData = (index) => {
+		var allSemesterData = membersData[index]['semesters'].filter((semester) => semester['isAvailable'] === true)
+		return (
+			<React.Fragment>
+				<tr>
+					<td colSpan={6}>
+						<TableContainer component={Paper}>
+							<Table style={{ minWidth: "650" }} aria-label="simple table">
+								<TableHead>
+									<TableRow>
+										<TableCell align="center">Semester</TableCell>
+										<TableCell align="center">Subject 1</TableCell>
+										<TableCell align="center">Subject 2</TableCell>
+										<TableCell align="center">Subject 3</TableCell>
+										<TableCell align="center">Subject 4</TableCell>
+										<TableCell align="center">Subject 5</TableCell>
+										<TableCell align="center">Subject 6</TableCell>
+										<TableCell align="center">Subject 7</TableCell>
+										<TableCell align="center">Subject 8</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{allSemesterData.map((eachSemester) => (
+										<TableRow>
+											<TableCell key={eachSemester.name} align="center">{eachSemester.name}</TableCell>
+											{(eachSemester[eachSemester.name]).map((subject) => {
+												return (
+													<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade}</TableCell>
+												)
+											})}
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</td>
+				</tr>
+			</React.Fragment>
+		)
+	}
 	return (
 		<>
 			{studentsData && <DataTable
@@ -96,42 +135,8 @@ export default function Tables(props) {
 							datatableTitle="StudentData"
 						/>,
 					renderExpandableRow: (rowData, rowMeta) => {
-						// console.log(rowData, rowMeta);
 						return (
-							<React.Fragment>
-								<tr>
-									<td colSpan={6}>
-										<TableContainer component={Paper}>
-											<Table style={{ minWidth: "650" }} aria-label="simple table">
-												<TableHead>
-													<TableRow>
-														<TableCell align="center">Semester</TableCell>
-														<TableCell align="center">{JSON.stringify(studentsData[rowMeta.dataIndex].semesters)}</TableCell>
-														<TableCell align="center">Subject 2</TableCell>
-														<TableCell align="center">Subject 3</TableCell>
-														<TableCell align="center">Subject 4</TableCell>
-														<TableCell align="center">Subject 5</TableCell>
-														<TableCell align="center">Subject 6</TableCell>
-													</TableRow>
-												</TableHead>
-												<TableBody>
-													{studentsData[rowMeta.dataIndex].semesters.map((historyRow) => (
-														<TableRow key={JSON.stringify(historyRow)}>
-															<TableCell align="center">sub1</TableCell>
-															<TableCell align="center">sub2</TableCell>
-															<TableCell align="center">sub3</TableCell>
-															<TableCell align="center">sub4</TableCell>
-															<TableCell align="center">sub5</TableCell>
-															<TableCell align="center">sub6</TableCell>
-															<TableCell align="center">sub7</TableCell>
-														</TableRow>
-													))}
-												</TableBody>
-											</Table>
-										</TableContainer>
-									</td>
-								</tr>
-							</React.Fragment>
+							renderExtraData(rowMeta.dataIndex)
 						);
 					},
 				}}

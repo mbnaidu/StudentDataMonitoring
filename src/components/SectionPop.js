@@ -10,11 +10,6 @@ export default function SectionPop({ onSectionChange }) {
         onSectionChange(event)
         handleClose()
     };
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = (event, reason) => {
         if (reason !== 'backdropClick') {
             setOpen(false);
@@ -23,7 +18,7 @@ export default function SectionPop({ onSectionChange }) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" onClick={handleClickOpen}>{section ? `Section - ${section}` : 'Select Section'}</Button>
+            <Button color="primary" variant="contained" onMouseOver={() => { setOpen(true) }} onMouseEnter={() => { setOpen(false) }}>{section ? `Section - ${section}` : 'Select Section'}</Button>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Section</DialogTitle>
                 <DialogContent>
