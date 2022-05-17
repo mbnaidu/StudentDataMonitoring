@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button, CircularProgress, Grid } from "@material-ui/core";
+import { Button, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 // styles
 import useStyles from "./styles";
-
+import {
+	AddToPhotosRounded as AddToPhotos,
+} from "@material-ui/icons";
 // components
 import PageTitle from "../../components/PageTitle";
 import Widget from "../../components/Widget";
@@ -16,17 +18,25 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
 export default function TypographyPage(props) {
+
+	const drop = document.querySelector(".drop");
+	const progress = document.querySelector(".progress");
+	const pdfprogress = document.querySelector(".pdfprogress");
+	const pdfdrop = document.querySelector(".pdfdrop");
+	const pdfsupplyprogress = document.querySelector(".pdfsupplyprogress");
+	const pdfsupplydrop = document.querySelector(".pdfsupplydrop");
+
 	var classes = useStyles();
 	const [excelFileData, setExcelFileData] = useState({ preview: '', data: '' })
-	const [excelFileName, setExcelFileName] = useState('Select your file!');
-
+	const [excelFileName, setExcelFileName] = useState(null);
+	const [selectedSem, setSelectedSem] = useState('sem1Data');
 	const [PDFFileData, setPDFFileData] = useState({ preview: '', data: '' })
-	const [PDFFileName, setPDFFileName] = useState('Select your file!');
+	const [PDFFileName, setPDFFileName] = useState(null);
 	const [activeClass, setActiveClass] = useState('1-1sem')
 	const [excelStatus, setExcelStatus] = useState('')
 	const [PDFStatus, setPDFStatus] = useState('')
-	const [section, setSection] = useState('');
-	const [year, setYear] = useState('');
+	const [section, setSection] = useState(null);
+	const [year, setYear] = useState(null);
 	const [isDisabled, setIsDisabled] = useState(true);
 	const [allSelectedStudents, setAllSelectedStudents] = useState(null);
 	const commonFunc = (route) => {
@@ -66,13 +76,12 @@ export default function TypographyPage(props) {
 		setSection('');
 		setYear('');
 		setExcelFileData({ preview: '', data: '' });
-		setExcelFileName('Select your file!');
+		setExcelFileName(null);
 	}
+	// useEffect(() => {
+	// }, [])
 	useEffect(() => {
-		emptyStates();
-	}, [])
-	useEffect(() => {
-		if (excelFileName.indexOf('.xlsx') !== -1 && excelFileData && section && year) {
+		if (excelFileName !== null && excelFileData && section && year) {
 			setIsDisabled(false)
 		}
 	}, [excelFileName, section, year, excelStatus])
@@ -92,6 +101,7 @@ export default function TypographyPage(props) {
 			toast("Successfully Added !")
 			setExcelStatus(response.excelStatusText);
 			emptyStates()
+			window.location.reload(false)
 		}
 	}
 	const handlePDFSubmit = async (e) => {
@@ -102,7 +112,7 @@ export default function TypographyPage(props) {
 		formData.append('section', section)
 		formData.append('year', year)
 		formData.append('isPrev', section + year)
-		formData.append('semNumber', 'sem1Data')
+		formData.append('semNumber', selectedSem)
 		try {
 			const res = await axios.post(
 				"http://localhost:3001/uploadResultPDF",
@@ -117,7 +127,75 @@ export default function TypographyPage(props) {
 			console.log(ex);
 		}
 	}
+	const handleSupplySubmit = async (e) => {
+		setPDFStatus(null)
+		e.preventDefault()
+		const formData = new FormData();
+		formData.append('file', PDFFileData.data)
+		formData.append('section', section)
+		formData.append('year', year)
+		formData.append('isPrev', section + year)
+		formData.append('semNumber', selectedSem)
+		try {
+			const res = await axios.post(
+				"http://localhost:3001/uploadSupplyPDF",
+				formData
+			);
+			if (res.data) {
+				toast("Successfully Added !")
+				setPDFStatus(res.excelStatusText);
+				emptyStates()
+			}
+		} catch (ex) {
+			console.log(ex);
+		}
+	}
+	function excelupload() {
+		// fake Upload Logic
+		let intervalCount = 0.25;
+		progress.style.display = "block";
+		progress.style.width = `${20 * intervalCount}%`;
+		const interval = setInterval(() => {
+			intervalCount += 0.25;
+			progress.style.width = `${20 * intervalCount}%`;
+			if (intervalCount === 5) {
+				clearInterval(interval);
+				progress.style.display = "none";
+				drop.style.display = "block";
+			}
+		}, 100);
+	} function pdfupload() {
+		// fake Upload Logic
+		let intervalCount = 0.25;
+		pdfprogress.style.display = "block";
+		pdfprogress.style.width = `${20 * intervalCount}%`;
+		const interval = setInterval(() => {
+			intervalCount += 0.25;
+			pdfprogress.style.width = `${20 * intervalCount}%`;
+			if (intervalCount === 5) {
+				clearInterval(interval);
+				pdfprogress.style.display = "none";
+				pdfdrop.style.display = "block";
+			}
+		}, 100);
+	} function pdfsupplyupload() {
+		// fake Upload Logic
+		let intervalCount = 0.25;
+		pdfsupplyprogress.style.display = "block";
+		pdfsupplyprogress.style.width = `${20 * intervalCount}%`;
+		const interval = setInterval(() => {
+			intervalCount += 0.25;
+			pdfsupplyprogress.style.width = `${20 * intervalCount}%`;
+			if (intervalCount === 5) {
+				clearInterval(interval);
+				pdfsupplyprogress.style.display = "none";
+				pdfsupplydrop.style.display = "block";
+			}
+		}, 100);
+	}
 	const handleExcelFileChange = (e) => {
+		drop.style.display = "none";
+		excelupload()
 		const fileInfo = {
 			preview: URL.createObjectURL(e.target.files[0]),
 			data: e.target.files[0],
@@ -125,14 +203,25 @@ export default function TypographyPage(props) {
 		setExcelFileName(e.target.files[0].name)
 		setExcelFileData(fileInfo)
 	}
-	const handlePDFFileChange = (e, id) => {
+	const handlePDFFileChange = (e) => {
+		pdfdrop.style.display = "none";
+		pdfupload()
 		const fileInfo = {
 			preview: URL.createObjectURL(e.target.files[0]),
 			data: e.target.files[0],
 		}
 		setPDFFileName(e.target.files[0].name)
 		setPDFFileData(fileInfo);
-		setActiveClass(id);
+	}
+	const handleSupplyPDFChange = (e) => {
+		pdfsupplydrop.style.display = "none";
+		pdfsupplyupload()
+		const fileInfo = {
+			preview: URL.createObjectURL(e.target.files[0]),
+			data: e.target.files[0],
+		}
+		setPDFFileName(e.target.files[0].name)
+		setPDFFileData(fileInfo);
 	}
 	const handleSectionChange = (e) => {
 		setSection(e)
@@ -143,73 +232,100 @@ export default function TypographyPage(props) {
 	function CloseButton({ closeToast, className }) {
 		return <CloseIcon className={className} onClick={closeToast} />;
 	}
-
-	const uploadData = [
-		{ title: '1-1 Semester', clsName: '1-1sem' },
-		{ title: '1-2 Semester', clsName: '1-2sem' },
-		{ title: '2-1 Semester', clsName: '2-1sem' },
-		{ title: '2-2 Semester', clsName: '2-2sem' },
-		{ title: '3-1 Semester', clsName: '3-1sem' },
-		{ title: '3-2 Semester', clsName: '3-2sem' },
-		{ title: '4-1 Semester', clsName: '4-1sem' },
-		{ title: '4-2 Semester', clsName: '4-2sem' },
-	]
+	const renderDropDown = () => {
+		return (
+			<FormControl fullWidth>
+				<InputLabel id="demo-simple-select-label">Selected Sem</InputLabel>
+				<Select
+					labelId="demo-simple-select-label"
+					id="demo-simple-select"
+					value={selectedSem}
+					label="Age"
+					onChange={(e) => setSelectedSem(e.target.value)}
+				>
+					<MenuItem value={'sem1Data'}>Sem - 1</MenuItem>
+					<MenuItem value={'sem2Data'}>Sem - 2</MenuItem>
+					<MenuItem value={'sem3Data'}>Sem - 3</MenuItem>
+					<MenuItem value={'sem4Data'}>Sem - 4</MenuItem>
+					<MenuItem value={'sem5Data'}>Sem - 5</MenuItem>
+					<MenuItem value={'sem6Data'}>Sem - 6</MenuItem>
+					<MenuItem value={'sem7Data'}>Sem - 7</MenuItem>
+					<MenuItem value={'sem8Data'}>Sem - 8</MenuItem>
+				</Select>
+			</FormControl>
+		)
+	}
 	return (
 		<>
-			<PageTitle title="Upload Semester Datas" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
+			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
 			<ToastContainer className={classes.toastsContainer}
 				closeButton={
 					<CloseButton className={classes.notificationCloseButton} />
 				}
 				closeOnClick={false}
 				progressClassName={classes.notificationProgress} />
-			<Grid container spacing={4}>
-				<Grid item xs={12} md={12}>
-					<Widget title="Student List" disableWidgetMenu >
-						{excelStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
-							<div className={classes.dashedBorder} style={{ flexDirection: 'row' }}>
-								{allSelectedStudents === null ?
-									<>
-										<div className="container">
-											<form className="form">
-												<div className="file-upload-wrapper" data-text={excelFileName}>
-													<input type="file" accept='.xlsx, .xls, .csv' onChange={handleExcelFileChange}></input>
-												</div>
-											</form>
-										</div>
-										<div className="fs-title">
-											<Button disabled={isDisabled} variant="contained" onClick={handleExcelSubmit} style={{ backgroundColor: !isDisabled ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
-												Submit
-											</Button>
-										</div>
-									</>
-									: <h4>Data Exists {section && year && <Button variant="contained" color="secondary">Delete Data</Button>}</h4>}
-							</div>)}
-					</Widget>
+			<Grid container spacing={10}>
+				<Grid item xs={12} md={12} className={section && year ? null : 'disabledcursor'}>
+					<PageTitle title="Upload Student Excel Sheet" />
+					<div className="drop-container">
+						<div className="drop">
+							{excelStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
+								allSelectedStudents ? 'Student Data Already Exists' :
+									(excelFileName ? excelFileName :
+										<>
+											<AddToPhotos />
+											<span className="text">
+												Upload Students Details Through Excel Sheet
+											</span>
+											<label htmlFor="file-upload">Browse Files</label>
+											<input type="file" id="file-upload" className="file-input" accept='.xlsx, .xls, .csv' onChange={handleExcelFileChange} disabled={section && year ? false : true} />
+										</>))}
+						</div>
+						<div className="progress"></div>
+						<Button disabled={isDisabled} variant="contained" onClick={handleExcelSubmit} style={{ backgroundColor: !isDisabled ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+							Submit
+						</Button>
+					</div>
 				</Grid>
-				{section && year && allSelectedStudents && uploadData && uploadData.map((data) => {
-					return (
-						<Grid item xs={12} md={6} key={data.clsName}>
-							<Widget title={data.title} disableWidgetMenu>
-								{PDFStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
-									<>
-										<div className={classes.dashedBorder}>
-											<div className="container" >
-												<form className="form" style={{ backgroundColor: 'red' }} >
-													<div className="file-upload-wrapper" data-text={activeClass === data.clsName ? PDFFileName : `${activeClass} is active`}>
-														<input type="file" accept='.pdf' onChange={(e) => { handlePDFFileChange(e, data.clsName) }} ></input>
-													</div>
-												</form>
+				{allSelectedStudents && section && year && <Grid item xs={12} md={12} key={`data.clsName`}>
+					<Widget title={renderDropDown()} disableWidgetMenu>
+						{PDFStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
+							<>
+								<div className={classes.dashedBorder}>
+									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+										<div className={`drop-container ${allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 ? 'disabledCursor' : ''}`}>
+											<div className="pdfdrop">
+												{PDFFileName ? PDFFileName : (<>
+													<span className="text">
+														Upload Regular PDF
+													</span>
+													<label htmlFor="file-uploads">Browse Files</label>
+													<input type="file" id="file-uploads" className="file-input" accept='.pdf' onChange={(e) => { handlePDFFileChange(e) }} disabled={allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 ? true : false} /></>)}
 											</div>
+											<div className="pdfprogress"></div>
+											{allSelectedStudents[0].presentSem.indexOf(selectedSem) === -1 && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handlePDFSubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+												Submit
+											</Button>}
 										</div>
-										<Button variant="contained" disabled={activeClass === data.clsName ? false : true} onClick={handlePDFSubmit} style={{ backgroundColor: activeClass === data.clsName ? '#7B1FA2' : '#eee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
-											Submit
-										</Button>
-									</>)}
-							</Widget>
-						</Grid>
-					)
-				})}
+										<div className={`drop-container ${allSelectedStudents[0].presentSem.indexOf(selectedSem) === -1 ? 'disabledcursor' : ''}`}>
+											<div className="pdfsupplydrop">
+												{PDFFileName ? PDFFileName : (<>
+													<span className="text">
+														Upload Supply PDF
+													</span>
+													<label htmlFor="file-supplyPDFupload">Browse Files</label>
+													<input type="file" id="file-supplyPDFupload" className="file-input" accept='.pdf' onChange={(e) => { handleSupplyPDFChange(e) }} /></>)}
+											</div>
+											<div className="pdfsupplyprogress"></div>
+											{allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handleSupplySubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+												Submit
+											</Button>}
+										</div>
+									</div>
+								</div>
+							</>)}
+					</Widget>
+				</Grid>}
 			</Grid>
 		</>
 	);
