@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { Button, CircularProgress, Fab, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from "@material-ui/core";
 
 // styles
 import useStyles from "./styles";
 import {
+	RemoveRounded as SubIcon,
+	AddRounded as AddIcon,
 	AddToPhotosRounded as AddToPhotos,
 } from "@material-ui/icons";
 // components
@@ -29,10 +31,12 @@ export default function TypographyPage(props) {
 	var classes = useStyles();
 	const [excelFileData, setExcelFileData] = useState({ preview: '', data: '' })
 	const [excelFileName, setExcelFileName] = useState(null);
-	const [selectedSem, setSelectedSem] = useState('sem1Data');
+	const [selectedSem, setSelectedSem] = useState([]);
 	const [PDFFileData, setPDFFileData] = useState({ preview: '', data: '' })
 	const [PDFFileName, setPDFFileName] = useState(null);
-	const [regularAvailable, setRegularAvailable] = useState(false)
+	const [regularAvailable, setRegularAvailable] = useState(true)
+	const [presentSemNoofAttempts, setPresentSemNoOfAttempts] = useState(null);
+	const [semCount, setSemCount] = useState(null);
 	const [excelStatus, setExcelStatus] = useState('')
 	const [PDFStatus, setPDFStatus] = useState('')
 	const [section, setSection] = useState(null);
@@ -61,11 +65,14 @@ export default function TypographyPage(props) {
 		allSelectedStudents && allSelectedStudents[0].presentSem.some(element => {
 			if (element.name === selectedSem) {
 				setRegularAvailable(false);
+				setPresentSemNoOfAttempts(element.noOfAttempts);
+				setSemCount(element.noOfAttempts)
 			}
 			else {
 				setRegularAvailable(true)
 			}
 		});
+		allSelectedStudents && allSelectedStudents[0].presentSem.length === 0 && setRegularAvailable(true)
 	}, [selectedSem])
 	useEffect(() => {
 		if (section && !year) {
@@ -136,6 +143,7 @@ export default function TypographyPage(props) {
 		}
 	}
 	const handleSupplySubmit = async (e) => {
+		var isSupply = presentSemNoofAttempts === semCount ? false : true;
 		setPDFStatus(null)
 		e.preventDefault()
 		const formData = new FormData();
@@ -144,6 +152,8 @@ export default function TypographyPage(props) {
 		formData.append('year', year)
 		formData.append('isPrev', section + year)
 		formData.append('semNumber', selectedSem)
+		formData.append('noOfAttempts', presentSemNoofAttempts)
+		formData.append('isSupply', isSupply)
 		try {
 			const res = await axios.post(
 				"http://localhost:3001/uploadSupplyPDF",
@@ -263,6 +273,11 @@ export default function TypographyPage(props) {
 			</FormControl>
 		)
 	}
+	const [checked, setChecked] = React.useState(true);
+
+	const handleChange = (event) => {
+		setChecked(event.target.checked);
+	};
 	return (
 		<>
 			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
@@ -301,7 +316,7 @@ export default function TypographyPage(props) {
 							<>
 								<div className={classes.dashedBorder}>
 									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-										<div className={`drop-container ${regularAvailable ? '' : 'disabledCursor'}`}>
+										<div className={`drop-container ${regularAvailable && selectedSem.length > 0 ? '' : 'disabledCursor'}`}>
 											<div className="pdfdrop">
 												{PDFFileName ? PDFFileName : (<>
 													<span className="text">
@@ -315,6 +330,12 @@ export default function TypographyPage(props) {
 												Submit
 											</Button>}
 										</div>
+										<div style={{ alignItems: 'center', display: 'flex' }}>
+											<h3 style={{ paddingRight: 30 }}>Num Of Attempts : {presentSemNoofAttempts}</h3>
+											<Fab color="primary" aria-label="add" onClick={() => { setPresentSemNoOfAttempts(semCount === presentSemNoofAttempts ? parseInt(presentSemNoofAttempts) + 1 : presentSemNoofAttempts - 1) }} disabled={regularAvailable}>
+												{semCount === presentSemNoofAttempts ? <AddIcon /> : <SubIcon />}
+											</Fab>
+										</div>
 										<div className={`drop-container ${regularAvailable ? 'disabledCursor' : ''}`}>
 											<div className="pdfsupplydrop">
 												{PDFFileName ? PDFFileName : (<>
@@ -325,9 +346,9 @@ export default function TypographyPage(props) {
 													<input type="file" id="file-supplyPDFupload" className="file-input" accept='.pdf' onChange={(e) => { handleSupplyPDFChange(e) }} disabled={regularAvailable} /></>)}
 											</div>
 											<div className="pdfsupplyprogress"></div>
-											{!regularAvailable && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handleSupplySubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+											{!regularAvailable && <div style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}><Button disabled={PDFFileName ? false : true} variant="contained" onClick={handleSupplySubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
 												Submit
-											</Button>}
+											</Button></div>}
 										</div>
 									</div>
 								</div>

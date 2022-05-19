@@ -103,7 +103,7 @@ export default function Tables(props) {
 											<TableCell key={eachSemester.name} align="center">{eachSemester.name}</TableCell>
 											{(eachSemester[eachSemester.name]).map((subject) => {
 												return (
-													<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade}</TableCell>
+													<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade} {subject.noOfAttempts > 0 ? ` - ${subject.noOfAttempts}` : ''}</TableCell>
 												)
 											})}
 										</TableRow>
@@ -123,7 +123,7 @@ export default function Tables(props) {
 				data={studentsData}
 				columns={columns}
 				options={{
-					filterType: "dropdown",
+					filterType: "multiselect",
 					print: false,
 					download: false,
 					expandableRows: true,
