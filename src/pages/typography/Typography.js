@@ -332,7 +332,7 @@ export default function TypographyPage(props) {
 										</div>
 										<div style={{ alignItems: 'center', display: 'flex' }}>
 											<h3 style={{ paddingRight: 30 }}>Num Of Attempts : {presentSemNoofAttempts}</h3>
-											<Fab color="primary" aria-label="add" onClick={() => { setPresentSemNoOfAttempts(semCount === presentSemNoofAttempts ? parseInt(presentSemNoofAttempts) + 1 : presentSemNoofAttempts - 1) }} disabled={regularAvailable}>
+											<Fab color="primary" aria-label="add" onClick={() => { setPresentSemNoOfAttempts(semCount === presentSemNoofAttempts ? parseInt(semCount) + 1 : semCount) }} disabled={regularAvailable}>
 												{semCount === presentSemNoofAttempts ? <AddIcon /> : <SubIcon />}
 											</Fab>
 										</div>
