@@ -32,7 +32,7 @@ export default function TypographyPage(props) {
 	const [selectedSem, setSelectedSem] = useState('sem1Data');
 	const [PDFFileData, setPDFFileData] = useState({ preview: '', data: '' })
 	const [PDFFileName, setPDFFileName] = useState(null);
-	const [activeClass, setActiveClass] = useState('1-1sem')
+	const [regularAvailable, setRegularAvailable] = useState(false)
 	const [excelStatus, setExcelStatus] = useState('')
 	const [PDFStatus, setPDFStatus] = useState('')
 	const [section, setSection] = useState(null);
@@ -58,6 +58,16 @@ export default function TypographyPage(props) {
 			})
 	}
 	useEffect(() => {
+		allSelectedStudents && allSelectedStudents[0].presentSem.some(element => {
+			if (element.name === selectedSem) {
+				setRegularAvailable(false);
+			}
+			else {
+				setRegularAvailable(true)
+			}
+		});
+	}, [selectedSem])
+	useEffect(() => {
 		if (section && !year) {
 			commonFunc('getbysection');
 		}
@@ -78,8 +88,6 @@ export default function TypographyPage(props) {
 		setExcelFileData({ preview: '', data: '' });
 		setExcelFileName(null);
 	}
-	// useEffect(() => {
-	// }, [])
 	useEffect(() => {
 		if (excelFileName !== null && excelFileData && section && year) {
 			setIsDisabled(false)
@@ -293,31 +301,31 @@ export default function TypographyPage(props) {
 							<>
 								<div className={classes.dashedBorder}>
 									<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-										<div className={`drop-container ${allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 ? 'disabledCursor' : ''}`}>
+										<div className={`drop-container ${regularAvailable ? '' : 'disabledCursor'}`}>
 											<div className="pdfdrop">
 												{PDFFileName ? PDFFileName : (<>
 													<span className="text">
 														Upload Regular PDF
 													</span>
 													<label htmlFor="file-uploads">Browse Files</label>
-													<input type="file" id="file-uploads" className="file-input" accept='.pdf' onChange={(e) => { handlePDFFileChange(e) }} disabled={allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 ? true : false} /></>)}
+													<input type="file" id="file-uploads" className="file-input" accept='.pdf' onChange={(e) => { handlePDFFileChange(e) }} disabled={!regularAvailable} /></>)}
 											</div>
 											<div className="pdfprogress"></div>
-											{allSelectedStudents[0].presentSem.indexOf(selectedSem) === -1 && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handlePDFSubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+											{regularAvailable && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handlePDFSubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
 												Submit
 											</Button>}
 										</div>
-										<div className={`drop-container ${allSelectedStudents[0].presentSem.indexOf(selectedSem) === -1 ? 'disabledcursor' : ''}`}>
+										<div className={`drop-container ${regularAvailable ? 'disabledCursor' : ''}`}>
 											<div className="pdfsupplydrop">
 												{PDFFileName ? PDFFileName : (<>
 													<span className="text">
 														Upload Supply PDF
 													</span>
 													<label htmlFor="file-supplyPDFupload">Browse Files</label>
-													<input type="file" id="file-supplyPDFupload" className="file-input" accept='.pdf' onChange={(e) => { handleSupplyPDFChange(e) }} /></>)}
+													<input type="file" id="file-supplyPDFupload" className="file-input" accept='.pdf' onChange={(e) => { handleSupplyPDFChange(e) }} disabled={regularAvailable} /></>)}
 											</div>
 											<div className="pdfsupplyprogress"></div>
-											{allSelectedStudents[0].presentSem.indexOf(selectedSem) !== -1 && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handleSupplySubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
+											{!regularAvailable && <Button disabled={PDFFileName ? false : true} variant="contained" onClick={handleSupplySubmit} style={{ backgroundColor: PDFFileName ? '#7B1FA2' : '#eeeeee', color: '#FFFFFF', marginTop: 29 }} endIcon={<SendIcon />}>
 												Submit
 											</Button>}
 										</div>
