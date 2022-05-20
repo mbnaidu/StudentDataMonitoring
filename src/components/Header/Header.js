@@ -23,7 +23,7 @@ import {
 	toggleSidebar,
 } from "../../context/LayoutContext";
 import { useUserDispatch, signOut } from "../../context/UserContext";
-
+import { movingText } from "../../Globals/Globals";
 
 export default function Header(props) {
 	var classes = useStyles();
@@ -71,7 +71,7 @@ export default function Header(props) {
 						/>
 					)}
 				</IconButton>
-				<Typography variant="h6" weight="medium" className={classes.logotype}>
+				<Typography variant="h4" weight="medium" className={classes.logotype}>
 					Student Data Monitoring
 				</Typography>
 				<div className={classes.grow} />
@@ -93,10 +93,8 @@ export default function Header(props) {
 					classes={{ paper: classes.profileMenu }}
 					disableAutoFocusItem
 				>
-					<div className={classes.profileMenuUser}>
-						<Typography variant="h4" weight="medium">
-							{userName && userName.slice(1, -1)}
-						</Typography>
+					<div>
+						{movingText(userName?.slice(1, -1))}
 					</div>
 					<div className={classes.profileMenuUser}>
 						<Typography

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, OutlinedInput, FormControl, Select } from "@material-ui/core";
+import { movingText } from '../../Globals/Globals';
 
 export default function SectionPop({ onSectionChange }) {
     const [open, setOpen] = React.useState(false);
@@ -18,7 +19,7 @@ export default function SectionPop({ onSectionChange }) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" onClick={() => { setOpen(true) }}>{section ? `Section - ${section}` : 'Select Section'}</Button>
+            <Button color="primary" variant="contained" style={{ backgroundColor: 'white' }} onClick={() => { setOpen(true) }}>{movingText(section ? `Section - ${section}` : 'Select Section')}</Button>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Section</DialogTitle>
                 <DialogContent>

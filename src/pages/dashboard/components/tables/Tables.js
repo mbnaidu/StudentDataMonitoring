@@ -56,12 +56,11 @@ const SelectedRowsToolbar = ({ selectedRows, data, columns, datatableTitle }) =>
 		</div>
 	);
 }
-export default function Tables(props) {
-	const { membersData } = props;
+export default function Tables({ data }) {
 	const [studentsData, setStudentData] = useState(null);
 	useEffect(() => {
 		var sample = []
-		membersData.map((member) => {
+		data.map((member) => {
 			sample.push({
 				registerID: member.registerID,
 				fullName: member.fullName,
@@ -72,12 +71,12 @@ export default function Tables(props) {
 			})
 		})
 		setStudentData(sample);
-	}, [membersData])
+	}, [data])
 
 	const renderExtraData = (index) => {
-		var allSemesterData = membersData[index]['semesters'].filter((semester) => semester['isAvailable'] === true)
+		var allSemesterData = data[index]['semesters'].filter((semester) => semester['isAvailable'] === true)
 		return (
-			<React.Fragment>
+			<React.Fragment key={index}>
 				<tr>
 					<td colSpan={6}>
 						<TableContainer component={Paper}>
@@ -97,7 +96,7 @@ export default function Tables(props) {
 								</TableHead>
 								<TableBody>
 									{allSemesterData.map((eachSemester) => (
-										<TableRow>
+										<TableRow key={eachSemester.name}>
 											<TableCell key={eachSemester.name} align="center">{eachSemester.name}</TableCell>
 											{(eachSemester[eachSemester.name]).map((subject) => {
 												return (

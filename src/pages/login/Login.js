@@ -264,7 +264,7 @@ function Login(props) {
 					)}
 				</div>
 				<Typography color="primary" className={classes.copyright}>
-					{socialIcons()}
+					<div>{socialIcons('icon')}</div>
 				</Typography>
 			</div>
 		</Grid>

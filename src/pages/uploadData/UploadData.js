@@ -245,9 +245,6 @@ export default function UploadDataPage(props) {
 	const handleYearChange = (e) => {
 		setYear(e)
 	}
-	function CloseButton({ closeToast, className }) {
-		return <CloseIcon className={className} onClick={closeToast} />;
-	}
 	const renderDropDown = () => {
 		return (
 			<FormControl fullWidth>

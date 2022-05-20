@@ -15,6 +15,7 @@ import axios from "axios";
 import Tables from "./Components/tables/Tables";
 import SectionPop from "../../components/Models/SectionPop";
 import YearPop from "../../components/Models/YearPop";
+import { movingText } from "../../Globals/Globals";
 
 
 export default function Dashboard(props) {
@@ -71,7 +72,7 @@ export default function Dashboard(props) {
 	}
 	return (
 		<>
-			<PageTitle title="Dashboard" button={(<> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </>)} />
+			<PageTitle title={movingText('Dashboard')} button={(<div className={classes.dashboardHeader} style={{ justifyContent: 'space-evenly', width: '100%' }}> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </div>)} />
 			<Grid container spacing={4}>
 				{allSelectedStudents === null && <Grid container spacing={4}>
 					<Grid item xs={12} md={12}>
@@ -92,9 +93,9 @@ export default function Dashboard(props) {
 									<Grid container item alignItems={"center"}>
 										<Grid item xs={6}>
 											<Button onClick={() => { setSectionDetails(details) }} >
-												<Typography size="xl" weight="medium" noWrap>
-													{`${details.students.length} - ${details.section}`}
-												</Typography>
+												<div style={{ fontSize: 26, fontWeight: 'bold' }}>
+													{movingText(`${details.students.length} - ${details.section}`)}
+												</div>
 											</Button>
 										</Grid>
 										<Grid item xs={6}>
@@ -105,7 +106,7 @@ export default function Dashboard(props) {
 															<Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
 																&nbsp;{`${gender.value}`}&nbsp;
 															</Typography>
-															<Typography color="text" colorBrightness="secondary">
+															<Typography>
 																&nbsp;{details[gender.id]}
 															</Typography>
 														</div>
@@ -118,26 +119,26 @@ export default function Dashboard(props) {
 								<Grid
 									container
 									direction="row"
-									justify="space-between"
+									justifyContent="space-between"
 									alignItems="center"
 								>
 									<Grid item xs={4}>
-										<Typography color="text" colorBrightness="secondary" noWrap>
+										<div>
 											Class Pass%
-										</Typography>
-										<Typography size="md">{details.percentage}%</Typography>
+										</div>
+										<div>{details.percentage}</div>
 									</Grid>
 									<Grid item xs={4}>
-										<Typography color="text" colorBrightness="secondary" noWrap>
+										<Typography noWrap>
 											Male Pass%
 										</Typography>
-										<Typography size="md">{details.malePercentage}%</Typography>
+										<Typography size="md">{details.malePercentage}</Typography>
 									</Grid>
 									<Grid item xs={4}>
-										<Typography color="text" colorBrightness="secondary" noWrap>
+										<Typography noWrap>
 											Female Pass%
 										</Typography>
-										<Typography size="md">{details.femalePercentage}%</Typography>
+										<Typography size="md">{details.femalePercentage}</Typography>
 									</Grid>
 								</Grid>
 							</Widget>
@@ -145,7 +146,7 @@ export default function Dashboard(props) {
 					)
 				})}
 			</Grid>
-			{sectionDetails && <><PageTitle title={`Section ${sectionDetails.section}`} />
+			{sectionDetails && <><PageTitle title={movingText(`Section ${sectionDetails.section}`)} />
 				<Grid container spacing={4}>
 					<Grid item md={4} sm={6} xs={12}>
 						<BigStat {...(
@@ -190,8 +191,8 @@ export default function Dashboard(props) {
 			</>}
 			{membersData &&
 				<>
-					<PageTitle title={`Students Data`} />
-					<Tables membersData={membersData} />
+					<PageTitle title={movingText(`Students Data`)} />
+					<Tables data={membersData} />
 				</>}
 		</>
 	);

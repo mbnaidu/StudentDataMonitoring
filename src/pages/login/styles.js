@@ -142,6 +142,8 @@ export default makeStyles(theme => ({
 		marginLeft: theme.spacing(4),
 	},
 	copyright: {
+		flexDirection: "column",
+		display: "flex",
 		marginTop: theme.spacing(9),
 		whiteSpace: "nowrap",
 		[theme.breakpoints.up("md")]: {

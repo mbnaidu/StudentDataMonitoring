@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, OutlinedInput, FormControl, Select } from "@material-ui/core";
+import { movingText } from '../../Globals/Globals';
 
 export default function YearPop({ onYearChange }) {
     const [open, setOpen] = React.useState(false);
@@ -29,7 +30,7 @@ export default function YearPop({ onYearChange }) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" onClick={() => { setOpen(true) }} >{selectedYear ? `Year - ${selectedYear}` : 'Select Year'}</Button>
+            <Button color="primary" variant="contained" style={{ backgroundColor: 'white' }} onClick={() => { setOpen(true) }} >{movingText(selectedYear ? `Year - ${selectedYear}` : 'Select Year')}</Button>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Year</DialogTitle>
                 <DialogContent>

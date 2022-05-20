@@ -9,6 +9,7 @@ import useStyles from "./styles";
 
 // components
 import Widget from "../../../../components/Widget/Widget";
+import { movingText } from "../../../../Globals/Globals";
 
 export default function BigStat(props) {
 	var { product, color, totalStrength, allPass, backlogs, students, handleMembersClick } = props;
@@ -28,9 +29,9 @@ export default function BigStat(props) {
 			<div className={classes.totalValueContainer}>
 				<div className={classes.totalValue}>
 					<Button onClick={() => { handleMembersClick(students) }}>
-						<Typography size="xxl" color="text" colorBrightness="secondary">
-							{totalStrength}
-						</Typography>
+						<div style={{ fontSize: 30, fontWeight: 'bold', }}>
+							{movingText(`${totalStrength}`)}
+						</div>
 					</Button>
 				</div>
 			</div>
@@ -42,7 +43,7 @@ export default function BigStat(props) {
 							className={classnames(classes.profitArrow)}
 						/>
 					</Grid>
-					<Typography size="sm" color="text" colorBrightness="secondary">
+					<Typography size="sm">
 						All Pass
 					</Typography>
 				</div>
@@ -53,7 +54,7 @@ export default function BigStat(props) {
 							className={classnames(classes.profitArrowDanger)}
 						/>
 					</Grid>
-					<Typography size="sm" color="text" colorBrightness="secondary">
+					<Typography size="sm">
 						Backlogs
 					</Typography>
 				</div>

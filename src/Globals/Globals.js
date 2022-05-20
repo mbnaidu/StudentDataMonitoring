@@ -1,12 +1,13 @@
 
-import { Drawer, IconButton, List, Link } from "@material-ui/core";
+import { IconButton, Link } from "@material-ui/core";
 import { Instagram as InstagramIcon, Facebook as FacebookIcon, GitHub as GithubIcon } from '@material-ui/icons';
+import './global.css'
 
 export const bgColor = 'linear-gradient(to right, #141e30 , #243b55)';
 export const bgTextColor = 'white';
 export const bgIconColor = '#141e30';
 
-export const socialIcons = () => {
+export const socialIcons = props => {
     return (
         <>
             <Link
@@ -14,7 +15,7 @@ export const socialIcons = () => {
                 target={'_blank'}
             >
                 <IconButton aria-label="facebook" style={{ backgroundColor: '#141e30', margin: 10 }}>
-                    <FacebookIcon style={{ color: 'white' }} />
+                    <FacebookIcon className={props ? 'fbicon' : ''} style={{ color: 'white', fontSize: 28 }} />
                 </IconButton>
             </Link>
             <Link
@@ -22,7 +23,7 @@ export const socialIcons = () => {
                 target={'_blank'}
             >
                 <IconButton aria-label="instagram" style={{ backgroundColor: '#141e30', margin: 10 }} >
-                    <InstagramIcon style={{ color: 'white' }} />
+                    <InstagramIcon className={props ? 'instaicon' : ''} style={{ color: 'white' }} />
                 </IconButton>
             </Link>
             <Link
@@ -30,10 +31,18 @@ export const socialIcons = () => {
                 target={'_blank'}
             >
                 <IconButton aria-label="github" style={{ backgroundColor: '#141e30', margin: 10 }}>
-                    <GithubIcon style={{ color: 'white' }}
+                    <GithubIcon className={props ? 'githubicon' : ''} style={{ color: 'white' }}
                     />
                 </IconButton>
             </Link>
         </>
+    )
+};
+
+export const movingText = props => {
+    return (
+        <div className="userNameParent">
+            <div className="userNameChild">{props}</div>
+        </div>
     )
 }

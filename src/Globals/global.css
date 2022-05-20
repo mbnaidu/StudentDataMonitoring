@@ -1,0 +1,79 @@
+.fbicon {
+    animation: fb 5s infinite linear;
+}
+
+@keyframes fb {
+
+    0%,
+    100% {
+        color: white;
+    }
+
+    50% {
+        color: #052a74;
+    }
+}
+
+/*  */
+.instaicon {
+    animation: insta 5s infinite linear;
+}
+
+@keyframes insta {
+
+    0%,
+    100% {
+        color: white;
+    }
+
+    50% {
+        color: #81045a;
+    }
+}
+
+/*  */
+.githubicon {
+    animation: git 5s infinite linear;
+}
+
+@keyframes git {
+
+    0%,
+    100% {
+        color: white;
+    }
+
+    50% {
+        color: #043d88;
+    }
+}
+
+/*  */
+
+.userNameParent {
+    /* background: radial-gradient(ellipse at bottom, #022227 0%, #000000 100%); */
+    display: grid;
+    position: relative;
+    place-items: center;
+}
+
+.userNameChild {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    color: white;
+    background: url("../images/usernamebackground.jpg");
+    background-size: auto 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 8s linear infinite;
+}
+
+@keyframes shine {
+    from {
+        background-position: center 0;
+    }
+
+    to {
+        background-position: center 200%;
+    }
+}
