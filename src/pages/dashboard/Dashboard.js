@@ -10,11 +10,11 @@ import useStyles from "./styles";
 import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
 import { Typography } from "../../components/Wrappers";
-import BigStat from "./components/BigStat/BigStat";
+import BigStat from "./Components/BigStat/BigStat";
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
 import axios from "axios";
-import Tables from "../tables/Tables";
+import Tables from "./Components/tables/Tables";
 
 
 export default function Dashboard(props) {
