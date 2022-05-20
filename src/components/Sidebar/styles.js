@@ -48,9 +48,9 @@ export default makeStyles(theme => ({
 		flexGrow: 1,
 		padding: theme.spacing(3),
 	},
-	/* sidebarList: {
-	  marginTop: theme.spacing(6),
-	}, */
+	sidebarList: {
+		marginTop: theme.spacing(2),
+	},
 	mobileBackButton: {
 		marginTop: theme.spacing(0.5),
 		marginLeft: 18,

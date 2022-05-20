@@ -18,7 +18,7 @@ export default function SectionPop({ onSectionChange }) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" onMouseOver={() => { setOpen(true) }} onMouseEnter={() => { setOpen(false) }}>{section ? `Section - ${section}` : 'Select Section'}</Button>
+            <Button color="primary" variant="contained" onClick={() => { setOpen(true) }}>{section ? `Section - ${section}` : 'Select Section'}</Button>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Section</DialogTitle>
                 <DialogContent>
@@ -38,7 +38,6 @@ export default function SectionPop({ onSectionChange }) {
                             <option value={'F'}>Section F</option>
                         </Select>
                     </FormControl>
-                    {/* <TextField id="outlined-basic" label="Section" variant="outlined" value={section} onChange={(e) => { setSection(e.target.value) }} /> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

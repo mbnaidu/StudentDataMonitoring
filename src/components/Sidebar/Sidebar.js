@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, IconButton, List } from "@material-ui/core";
+import { Drawer, IconButton, List, Link } from "@material-ui/core";
 import {
 	Home as HomeIcon,
 	Group as GroupIcon,
-	FormatSize as TypographyIcon,
 	ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
+
+import Icon from '@mdi/react'
+
+//icons
+import {
+	mdiInstagram as Instagram,
+	mdiFacebook as FacebookIcon,
+	mdiGithub as GithubIcon,
+} from '@mdi/js'
 
 // styles
 import useStyles from "./styles";
@@ -88,6 +96,47 @@ function Sidebar({ location }) {
 					/>
 				))}
 			</List>
+			<div style={{ bottom: '0', position: 'absolute', alignSelf: 'center' }}>
+				<Link
+					href={'https://www.facebook.com/madhubabu.g.92'}
+					target={'_blank'}
+				>
+					<IconButton aria-label="facebook">
+						<Icon
+							path={FacebookIcon}
+							size={1.3}
+							color="#fff"
+						/>
+					</IconButton>
+				</Link>
+				<Link
+					href={'https://www.instagram.com/mb_naidu/'}
+					target={'_blank'}
+				>
+					<IconButton aria-label="instagram">
+						<Icon
+							path={Instagram}
+							size={1.3}
+							color="#fff"
+						/>
+					</IconButton>
+				</Link>
+				<Link
+					href={'https://github.com/mbnaidu'}
+					target={'_blank'}
+				>
+					<IconButton
+						aria-label="github"
+						style={{ marginRight: -12 }}
+					>
+						<Icon
+							path={GithubIcon}
+							size={1.3}
+							color="#fff"
+						/>
+					</IconButton>
+				</Link>
+			</div>
 		</Drawer>
 	);
 

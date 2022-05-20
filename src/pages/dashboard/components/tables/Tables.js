@@ -58,10 +58,8 @@ const SelectedRowsToolbar = ({ selectedRows, data, columns, datatableTitle }) =>
 }
 export default function Tables(props) {
 	const { membersData } = props;
-	const [loading, setLoading] = useState(null);
 	const [studentsData, setStudentData] = useState(null);
 	useEffect(() => {
-		setLoading(null);
 		var sample = []
 		membersData.map((member) => {
 			sample.push({

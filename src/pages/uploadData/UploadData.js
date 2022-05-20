@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, CircularProgress, Fab, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from "@material-ui/core";
+import { Button, CircularProgress, Fab, FormControl, Grid, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 // styles
 import useStyles from "./styles";
@@ -14,8 +14,8 @@ import Widget from "../../components/Widget/Widget";
 import { Close as CloseIcon } from "@material-ui/icons";
 import SendIcon from '@material-ui/icons/Send';
 import './uploadData.css';
-import SectionPop from "../../components/SectionPop";
-import YearPop from "../../components/YearPop";
+import SectionPop from "../../components/Models/SectionPop";
+import YearPop from "../../components/Models/YearPop";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
@@ -273,11 +273,6 @@ export default function UploadDataPage(props) {
 			</FormControl>
 		)
 	}
-	const [checked, setChecked] = React.useState(true);
-
-	const handleChange = (event) => {
-		setChecked(event.target.checked);
-	};
 	return (
 		<>
 			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </>)} />

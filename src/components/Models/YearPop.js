@@ -21,10 +21,6 @@ export default function YearPop({ onYearChange }) {
         handleClose()
     };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = (event, reason) => {
         if (reason !== 'backdropClick') {
             setOpen(false);
@@ -33,7 +29,7 @@ export default function YearPop({ onYearChange }) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" onMouseOver={() => { setOpen(true) }} onMouseEnter={() => { setOpen(false) }}>{selectedYear ? `Year - ${selectedYear}` : 'Select Year'}</Button>
+            <Button color="primary" variant="contained" onClick={() => { setOpen(true) }} >{selectedYear ? `Year - ${selectedYear}` : 'Select Year'}</Button>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Year</DialogTitle>
                 <DialogContent>

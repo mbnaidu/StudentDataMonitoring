@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
 	Button,
 	Grid,
+	Typography,
 } from "@material-ui/core";
 // styles
 import useStyles from "./styles";
@@ -9,12 +10,11 @@ import useStyles from "./styles";
 // components
 import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
-import { Typography } from "../../components/Wrappers";
 import BigStat from "./Components/BigStat/BigStat";
-import SectionPop from "../../components/SectionPop";
-import YearPop from "../../components/YearPop";
 import axios from "axios";
 import Tables from "./Components/tables/Tables";
+import SectionPop from "../../components/Models/SectionPop";
+import YearPop from "../../components/Models/YearPop";
 
 
 export default function Dashboard(props) {

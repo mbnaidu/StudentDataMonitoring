@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, } from "@material-ui/core";
+import { Button, Grid, Typography, } from "@material-ui/core";
 import { ArrowForward as ArrowForwardIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { BarChart, Bar } from "recharts";
@@ -10,7 +10,6 @@ import useStyles from "./styles";
 
 // components
 import Widget from "../../../../components/Widget/Widget";
-import { Typography } from "../../../../components/Wrappers/Wrappers";
 
 export default function BigStat(props) {
 	var { product, color, totalStrength, allPass, backlogs, students, handleMembersClick } = props;
