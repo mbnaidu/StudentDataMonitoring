@@ -16,6 +16,8 @@ export default makeStyles(theme => ({
     whiteSpace: "nowrap",
   },
   drawerOpen: {
+    color: 'white',
+    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -23,6 +25,8 @@ export default makeStyles(theme => ({
     }),
   },
   drawerClose: {
+    color: 'white',
+    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

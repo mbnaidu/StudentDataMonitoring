@@ -10,7 +10,6 @@ import useStyles from "./styles";
 import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
 import { Typography } from "../../components/Wrappers";
-import Dot from "../../components/Sidebar/components/Dot";
 import BigStat from "./components/BigStat/BigStat";
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
@@ -103,7 +102,6 @@ export default function Dashboard(props) {
 												return (
 													<div key={gender.id} className={classes.pieChartLegendWrapper}>
 														<div className={classes.legendItemContainer}>
-															<Dot color={gender.color} />
 															<Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
 																&nbsp;{`${gender.value}`}&nbsp;
 															</Typography>

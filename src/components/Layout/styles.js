@@ -5,6 +5,8 @@ export default makeStyles(theme => ({
     display: "flex",
     maxWidth: "100vw",
     overflowX: "hidden",
+    color: 'white',
+    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
   },
   content: {
     flexGrow: 1,
