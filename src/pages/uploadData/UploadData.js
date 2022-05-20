@@ -9,17 +9,17 @@ import {
 	AddToPhotosRounded as AddToPhotos,
 } from "@material-ui/icons";
 // components
-import PageTitle from "../../components/PageTitle";
-import Widget from "../../components/Widget";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Widget from "../../components/Widget/Widget";
 import { Close as CloseIcon } from "@material-ui/icons";
 import SendIcon from '@material-ui/icons/Send';
-import '../typography/typography.css';
+import './uploadData.css';
 import SectionPop from "../../components/SectionPop";
 import YearPop from "../../components/YearPop";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
-export default function TypographyPage(props) {
+export default function UploadDataPage(props) {
 
 	const drop = document.querySelector(".drop");
 	const progress = document.querySelector(".progress");

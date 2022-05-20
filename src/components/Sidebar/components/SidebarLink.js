@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import classnames from "classnames";
 
 // styles
-import useStyles from "./styles";
-import { toggleSidebar, useLayoutDispatch, useLayoutState } from "../../../../context/LayoutContext";
+import useStyles from "../styles";
+import { toggleSidebar, useLayoutDispatch, useLayoutState } from "../../../context/LayoutContext";
 
 export default function SidebarLink({
 	link,

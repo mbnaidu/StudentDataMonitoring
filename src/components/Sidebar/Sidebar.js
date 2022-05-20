@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
 	Home as HomeIcon,
+	Group as GroupIcon,
 	FormatSize as TypographyIcon,
 	ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
@@ -13,7 +14,7 @@ import classNames from "classnames";
 import useStyles from "./styles";
 
 // components
-import SidebarLink from "./components/SidebarLink/SidebarLink";
+import SidebarLink from "./components/SidebarLink";
 
 // context
 import {
@@ -27,9 +28,9 @@ const structure = [
 	{ id: 1, type: "divider" },
 	{
 		id: 2,
-		label: "Typography",
-		link: "/app/typography",
-		icon: <TypographyIcon />,
+		label: "Upload Data",
+		link: "/app/uploadData",
+		icon: <GroupIcon />,
 	},
 ];
 
