@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import { bgColor, bgTextColor } from "../../Globals/Globals";
 
 const drawerWidth = 240;
 
@@ -16,8 +17,8 @@ export default makeStyles(theme => ({
     whiteSpace: "nowrap",
   },
   drawerOpen: {
-    color: 'white',
-    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
+    color: bgTextColor,
+    backgroundImage: bgColor,
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -25,8 +26,8 @@ export default makeStyles(theme => ({
     }),
   },
   drawerClose: {
-    color: 'white',
-    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
+    color: bgTextColor,
+    backgroundImage: bgColor,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

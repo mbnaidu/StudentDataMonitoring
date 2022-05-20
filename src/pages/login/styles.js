@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import { bgColor, bgTextColor } from "../../Globals/Globals";
 
 export default makeStyles(theme => ({
 	container: {
@@ -10,8 +11,8 @@ export default makeStyles(theme => ({
 		position: "absolute",
 		top: 0,
 		left: 0,
-		color: 'white',
-		backgroundImage: "linear-gradient(to right, #141e30 , #243b55)"
+		color: bgTextColor,
+		backgroundImage: bgColor
 	},
 	logotypeContainer: {
 		backgroundColor: theme.palette.primary.main,

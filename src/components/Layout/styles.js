@@ -1,12 +1,13 @@
 import { makeStyles } from "@material-ui/styles";
+import { bgColor, bgTextColor } from "../../Globals/Globals";
 
 export default makeStyles(theme => ({
   root: {
     display: "flex",
     maxWidth: "100vw",
     overflowX: "hidden",
-    color: 'white',
-    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)",
+    color: bgTextColor,
+    backgroundImage: bgColor,
   },
   content: {
     flexGrow: 1,

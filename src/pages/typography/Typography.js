@@ -280,7 +280,7 @@ export default function TypographyPage(props) {
 	};
 	return (
 		<>
-			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
+			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </>)} />
 			<ToastContainer className={classes.toastsContainer}
 				closeButton={
 					<CloseButton className={classes.notificationCloseButton} />

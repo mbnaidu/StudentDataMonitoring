@@ -22,7 +22,7 @@ export default function SectionPop({ onSectionChange }) {
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                 <DialogTitle>Select Section</DialogTitle>
                 <DialogContent>
-                    <FormControl style={{ width: 300, }}>
+                    <FormControl style={{ width: 300 }}>
                         <Select
                             native
                             value={section}

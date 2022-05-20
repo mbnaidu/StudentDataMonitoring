@@ -71,7 +71,7 @@ export default function Dashboard(props) {
 	}
 	return (
 		<>
-			<PageTitle title="Dashboard" button={(<> <SectionPop onSectionChange={handleSectionChange} />, <YearPop onYearChange={handleYearChange} /> </>)} />
+			<PageTitle title="Dashboard" button={(<> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </>)} />
 			<Grid container spacing={4}>
 				{allSelectedStudents === null && <Grid container spacing={4}>
 					<Grid item xs={12} md={12}>
