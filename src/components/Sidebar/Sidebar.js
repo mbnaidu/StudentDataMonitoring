@@ -9,14 +9,7 @@ import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
 
-import Icon from '@mdi/react'
-
-//icons
-import {
-	mdiInstagram as Instagram,
-	mdiFacebook as FacebookIcon,
-	mdiGithub as GithubIcon,
-} from '@mdi/js'
+import { Instagram as InstagramIcon, Facebook as FacebookIcon, GitHub as GithubIcon } from '@material-ui/icons';
 
 // styles
 import useStyles from "./styles";
@@ -102,23 +95,17 @@ function Sidebar({ location }) {
 					target={'_blank'}
 				>
 					<IconButton aria-label="facebook">
-						<Icon
-							path={FacebookIcon}
-							size={1.3}
-							color="#fff"
-						/>
+						<FacebookIcon />
 					</IconButton>
 				</Link>
 				<Link
 					href={'https://www.instagram.com/mb_naidu/'}
 					target={'_blank'}
 				>
-					<IconButton aria-label="instagram">
-						<Icon
-							path={Instagram}
-							size={1.3}
-							color="#fff"
-						/>
+					<IconButton
+						aria-label="instagram"
+					>
+						<InstagramIcon />
 					</IconButton>
 				</Link>
 				<Link
@@ -127,12 +114,8 @@ function Sidebar({ location }) {
 				>
 					<IconButton
 						aria-label="github"
-						style={{ marginRight: -12 }}
 					>
-						<Icon
-							path={GithubIcon}
-							size={1.3}
-							color="#fff"
+						<GithubIcon
 						/>
 					</IconButton>
 				</Link>

@@ -16,7 +16,6 @@ import SendIcon from '@material-ui/icons/Send';
 import './uploadData.css';
 import SectionPop from "../../components/Models/SectionPop";
 import YearPop from "../../components/Models/YearPop";
-import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
 export default function UploadDataPage(props) {
@@ -113,7 +112,6 @@ export default function UploadDataPage(props) {
 			body: formData,
 		})
 		if (response) {
-			toast("Successfully Added !")
 			setExcelStatus(response.excelStatusText);
 			emptyStates()
 			window.location.reload(false)
@@ -134,9 +132,9 @@ export default function UploadDataPage(props) {
 				formData
 			);
 			if (res.data) {
-				toast("Successfully Added !")
 				setPDFStatus(res.excelStatusText);
 				emptyStates()
+				window.location.reload(false)
 			}
 		} catch (ex) {
 			console.log(ex);
@@ -160,9 +158,9 @@ export default function UploadDataPage(props) {
 				formData
 			);
 			if (res.data) {
-				toast("Successfully Added !")
 				setPDFStatus(res.excelStatusText);
 				emptyStates()
+				window.location.reload(false)
 			}
 		} catch (ex) {
 			console.log(ex);
@@ -276,19 +274,13 @@ export default function UploadDataPage(props) {
 	return (
 		<>
 			<PageTitle title="" button={(<> <SectionPop onSectionChange={handleSectionChange} /> <YearPop onYearChange={handleYearChange} /> </>)} />
-			<ToastContainer className={classes.toastsContainer}
-				closeButton={
-					<CloseButton className={classes.notificationCloseButton} />
-				}
-				closeOnClick={false}
-				progressClassName={classes.notificationProgress} />
 			<Grid container spacing={10}>
 				<Grid item xs={12} md={12} className={section && year ? null : 'disabledcursor'}>
 					<PageTitle title="Upload Student Excel Sheet" />
 					<div className="drop-container">
 						<div className="drop">
 							{excelStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
-								allSelectedStudents ? 'Student Data Already Exists' :
+								allSelectedStudents ? `Student Data Already Exists` :
 									(excelFileName ? excelFileName :
 										<>
 											<AddToPhotos />

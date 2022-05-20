@@ -13,17 +13,11 @@ import {
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
-import Icon from '@mdi/react'
 // styles
 import useStyles from "./styles";
 
-// logo
-//icons
-import {
-	mdiInstagram as Instagram,
-	mdiFacebook as FacebookIcon,
-	mdiGithub as GithubIcon,
-} from '@mdi/js'
+import { Instagram as InstagramIcon, Facebook as FacebookIcon, GitHub as GithubIcon } from '@material-ui/icons';
+
 import google from "../../images/google.svg";
 
 // context
@@ -273,47 +267,35 @@ function Login(props) {
 					)}
 				</div>
 				<Typography color="primary" className={classes.copyright}>
-					<div>
-						<Link
-							href={'https://www.facebook.com/madhubabu.g.92'}
-							target={'_blank'}
+					<Link
+						href={'https://www.facebook.com/madhubabu.g.92'}
+						target={'_blank'}
+					>
+						<IconButton aria-label="facebook">
+							<FacebookIcon />
+						</IconButton>
+					</Link>
+					<Link
+						href={'https://www.instagram.com/mb_naidu/'}
+						target={'_blank'}
+					>
+						<IconButton
+							aria-label="instagram"
 						>
-							<IconButton aria-label="facebook">
-								<Icon
-									path={FacebookIcon}
-									size={1.2}
-									color="#fff"
-								/>
-							</IconButton>
-						</Link>
-						<Link
-							href={'https://www.instagram.com/mb_naidu/'}
-							target={'_blank'}
+							<InstagramIcon />
+						</IconButton>
+					</Link>
+					<Link
+						href={'https://github.com/mbnaidu'}
+						target={'_blank'}
+					>
+						<IconButton
+							aria-label="github"
 						>
-							<IconButton aria-label="instagram">
-								<Icon
-									path={Instagram}
-									size={1.2}
-									color="#fff"
-								/>
-							</IconButton>
-						</Link>
-						<Link
-							href={'https://github.com/mbnaidu'}
-							target={'_blank'}
-						>
-							<IconButton
-								aria-label="github"
-								style={{ marginRight: -12 }}
-							>
-								<Icon
-									path={GithubIcon}
-									size={1.2}
-									color="#fff"
-								/>
-							</IconButton>
-						</Link>
-					</div>
+							<GithubIcon
+							/>
+						</IconButton>
+					</Link>
 				</Typography>
 			</div>
 		</Grid>

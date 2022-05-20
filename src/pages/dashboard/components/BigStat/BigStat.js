@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Grid, Typography, } from "@material-ui/core";
 import { ArrowForward as ArrowForwardIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
-import { BarChart, Bar } from "recharts";
 import classnames from "classnames";
 
 // styles
@@ -34,14 +33,6 @@ export default function BigStat(props) {
 						</Typography>
 					</Button>
 				</div>
-				<BarChart width={150} height={70} data={getRandomData()}>
-					<Bar
-						dataKey="value"
-						fill={theme.palette[color].main}
-						radius={10}
-						barSize={10}
-					/>
-				</BarChart>
 			</div>
 			<div className={classes.bottomStatsContainer}>
 				<div className={classnames(classes.statCell, classes.borderRight)}>
@@ -68,13 +59,5 @@ export default function BigStat(props) {
 				</div>
 			</div>
 		</Widget>
-	);
-}
-
-// #######################################################################
-
-function getRandomData() {
-	return Array(7)
-		.fill()
-		.map(() => ({ value: Math.floor(Math.random() * 10) + 1 }));
+	)
 }
