@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, IconButton, List, Link } from "@material-ui/core";
+import { Drawer, IconButton, List } from "@material-ui/core";
 import {
 	Home as HomeIcon,
 	Group as GroupIcon,
@@ -8,9 +8,6 @@ import {
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
-
-import { Instagram as InstagramIcon, Facebook as FacebookIcon, GitHub as GithubIcon } from '@material-ui/icons';
-
 // styles
 import useStyles from "./styles";
 
@@ -23,6 +20,7 @@ import {
 	useLayoutDispatch,
 	toggleSidebar,
 } from "../../context/LayoutContext";
+import { socialIcons } from "../../Globals/Globals";
 
 const structure = [
 	{ id: 0, label: "Dashboard", link: "/app/dashboard", icon: <HomeIcon /> },
@@ -90,35 +88,7 @@ function Sidebar({ location }) {
 				))}
 			</List>
 			<div style={{ bottom: '0', position: 'absolute', alignSelf: 'center' }}>
-				<Link
-					href={'https://www.facebook.com/madhubabu.g.92'}
-					target={'_blank'}
-				>
-					<IconButton aria-label="facebook">
-						<FacebookIcon />
-					</IconButton>
-				</Link>
-				<Link
-					href={'https://www.instagram.com/mb_naidu/'}
-					target={'_blank'}
-				>
-					<IconButton
-						aria-label="instagram"
-					>
-						<InstagramIcon />
-					</IconButton>
-				</Link>
-				<Link
-					href={'https://github.com/mbnaidu'}
-					target={'_blank'}
-				>
-					<IconButton
-						aria-label="github"
-					>
-						<GithubIcon
-						/>
-					</IconButton>
-				</Link>
+				{socialIcons()}
 			</div>
 		</Drawer>
 	);

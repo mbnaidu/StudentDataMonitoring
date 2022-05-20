@@ -8,21 +8,18 @@ import {
 	Tab,
 	TextField,
 	Fade,
-	IconButton,
-	Link
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
 // styles
 import useStyles from "./styles";
 
-import { Instagram as InstagramIcon, Facebook as FacebookIcon, GitHub as GithubIcon } from '@material-ui/icons';
-
 import google from "../../images/google.svg";
 
 // context
 import { useUserDispatch, loginUser } from "../../context/UserContext";
 import GoogleLogin from "react-google-login";
+import { socialIcons } from "../../Globals/Globals";
 
 function Login(props) {
 	var classes = useStyles();
@@ -267,35 +264,7 @@ function Login(props) {
 					)}
 				</div>
 				<Typography color="primary" className={classes.copyright}>
-					<Link
-						href={'https://www.facebook.com/madhubabu.g.92'}
-						target={'_blank'}
-					>
-						<IconButton aria-label="facebook">
-							<FacebookIcon />
-						</IconButton>
-					</Link>
-					<Link
-						href={'https://www.instagram.com/mb_naidu/'}
-						target={'_blank'}
-					>
-						<IconButton
-							aria-label="instagram"
-						>
-							<InstagramIcon />
-						</IconButton>
-					</Link>
-					<Link
-						href={'https://github.com/mbnaidu'}
-						target={'_blank'}
-					>
-						<IconButton
-							aria-label="github"
-						>
-							<GithubIcon
-							/>
-						</IconButton>
-					</Link>
+					{socialIcons()}
 				</Typography>
 			</div>
 		</Grid>

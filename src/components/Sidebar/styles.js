@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import { bgColor, bgTextColor } from "../../Globals/Globals";
+import { bgColor, bgIconColor, bgTextColor } from "../../Globals/Globals";
 
 const drawerWidth = 240;
 
@@ -94,7 +94,7 @@ export default makeStyles(theme => ({
 		justifyContent: "center",
 	},
 	linkIconActive: {
-		color: theme.palette.primary.main,
+		color: bgIconColor,
 	},
 	linkText: {
 		padding: 0,
