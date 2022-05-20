@@ -8,14 +8,22 @@ import {
 	Tab,
 	TextField,
 	Fade,
+	IconButton,
+	Link
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
+import Icon from '@mdi/react'
 // styles
 import useStyles from "./styles";
 
 // logo
-import logo from "./logo.svg";
+//icons
+import {
+	mdiInstagram as Instagram,
+	mdiFacebook as FacebookIcon,
+	mdiGithub as GithubIcon,
+} from '@mdi/js'
 import google from "../../images/google.svg";
 
 // context
@@ -53,10 +61,6 @@ function Login(props) {
 	}
 	return (
 		<Grid container className={classes.container}>
-			<div className={classes.logotypeContainer}>
-				<img src={logo} alt="logo" className={classes.logotypeImage} />
-				<Typography className={classes.logotypeText}>Material Admin</Typography>
-			</div>
 			<div className={classes.formContainer}>
 				<div className={classes.form}>
 					<Tabs
@@ -105,7 +109,7 @@ function Login(props) {
 								value={loginValue}
 								onChange={e => setLoginValue(e.target.value)}
 								margin="normal"
-								placeholder="Email Adress"
+								placeholder="Email Address"
 								type="email"
 								fullWidth
 							/>
@@ -198,7 +202,7 @@ function Login(props) {
 								value={loginValue}
 								onChange={e => setLoginValue(e.target.value)}
 								margin="normal"
-								placeholder="Email Adress"
+								placeholder="Email Address"
 								type="email"
 								fullWidth
 							/>
@@ -256,7 +260,7 @@ function Login(props) {
 								render={renderProps => (
 									<Button size="large" onClick={renderProps.onClick} disabled={renderProps.disabled} className={classes.googleButton}>
 										<img src={google} alt="google" className={classes.googleIcon} />
-										&nbsp;Sign in with Google
+										&nbsp;Sign up with Google
 									</Button>
 								)}
 								buttonText="Login"
@@ -269,7 +273,47 @@ function Login(props) {
 					)}
 				</div>
 				<Typography color="primary" className={classes.copyright}>
-					© 2014-{new Date().getFullYear()} <a style={{ textDecoration: 'none', color: 'inherit' }} href="https://flatlogic.com" rel="noopener noreferrer" target="_blank">Flatlogic</a>, LLC. All rights reserved.
+					<div>
+						<Link
+							href={'https://www.facebook.com/madhubabu.g.92'}
+							target={'_blank'}
+						>
+							<IconButton aria-label="facebook">
+								<Icon
+									path={FacebookIcon}
+									size={1.2}
+									color="#fff"
+								/>
+							</IconButton>
+						</Link>
+						<Link
+							href={'https://www.instagram.com/mb_naidu/'}
+							target={'_blank'}
+						>
+							<IconButton aria-label="instagram">
+								<Icon
+									path={Instagram}
+									size={1.2}
+									color="#fff"
+								/>
+							</IconButton>
+						</Link>
+						<Link
+							href={'https://github.com/mbnaidu'}
+							target={'_blank'}
+						>
+							<IconButton
+								aria-label="github"
+								style={{ marginRight: -12 }}
+							>
+								<Icon
+									path={GithubIcon}
+									size={1.2}
+									color="#fff"
+								/>
+							</IconButton>
+						</Link>
+					</div>
 				</Typography>
 			</div>
 		</Grid>

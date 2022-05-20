@@ -12,6 +12,8 @@ export default makeStyles(theme => ({
     position: "absolute",
     top: 0,
     left: 0,
+    color: 'white',
+    backgroundImage: "linear-gradient(to right, #141e30 , #243b55)"
   },
   logotype: {
     display: "flex",
