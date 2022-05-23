@@ -10,9 +10,9 @@ import useStyles from "./styles";
 // components
 import Widget from "../../components/Widget";
 import PageTitle from "../../components/PageTitle";
-import BigStat from "./Components/BigStat/BigStat";
+import BigStat from "./components/BigStat/BigStat";
 import axios from "axios";
-import Tables from "./Components/tables/Tables";
+import Tables from "./components/tables/Tables";
 import SectionPop from "../../components/Models/SectionPop";
 import YearPop from "../../components/Models/YearPop";
 import { movingText } from "../../Globals/Globals";
