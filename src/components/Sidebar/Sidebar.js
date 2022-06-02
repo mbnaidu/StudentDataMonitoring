@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
 	Home as HomeIcon,
-	Group as GroupIcon,
+	ApartmentTwoTone as PlacementsIcon,
 	ArrowBack as ArrowBackIcon,
+	Group as GroupIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -27,9 +28,16 @@ const structure = [
 	{ id: 1, type: "divider" },
 	{
 		id: 2,
-		label: "Upload Data",
-		link: "/app/uploadData",
+		label: "Semesters",
+		link: "/app/semesters",
 		icon: <GroupIcon />,
+	},
+	{ id: 3, type: "divider" },
+	{
+		id: 4,
+		label: "Placements",
+		link: "/app/placements",
+		icon: <PlacementsIcon />,
 	},
 ];
 

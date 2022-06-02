@@ -13,12 +13,12 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import Widget from "../../components/Widget/Widget";
 import { Close as CloseIcon } from "@material-ui/icons";
 import SendIcon from '@material-ui/icons/Send';
-import './uploadData.css';
+import './Semesters.css';
 import SectionPop from "../../components/Models/SectionPop";
 import YearPop from "../../components/Models/YearPop";
 import axios from "axios";
 
-export default function UploadDataPage(props) {
+export default function Semesters(props) {
 
 	const drop = document.querySelector(".drop");
 	const progress = document.querySelector(".progress");

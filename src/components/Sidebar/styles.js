@@ -87,7 +87,7 @@ export default makeStyles(theme => ({
 	},
 	linkIcon: {
 		marginRight: theme.spacing(1),
-		color: theme.palette.text.secondary + "99",
+		color: 'white',
 		transition: theme.transitions.create("color"),
 		width: 24,
 		display: "flex",
@@ -98,7 +98,7 @@ export default makeStyles(theme => ({
 	},
 	linkText: {
 		padding: 0,
-		color: theme.palette.text.secondary + "CC",
+		color: 'white',
 		transition: theme.transitions.create(["opacity", "color"]),
 		fontSize: 16,
 	},

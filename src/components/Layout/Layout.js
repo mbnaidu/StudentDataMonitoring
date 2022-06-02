@@ -14,10 +14,11 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
-import UploadData from "../../pages/uploadData/UploadData";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
+import Placements from "../../pages/Placements/Placements";
+import Semesters from "../../pages/SemestersData/Semesters";
 
 function Layout(props) {
 	var classes = useStyles();
@@ -38,7 +39,8 @@ function Layout(props) {
 					<div className={classes.fakeToolbar} />
 					<Switch>
 						<Route path="/app/dashboard" component={Dashboard} />
-						<Route path="/app/uploadData" component={UploadData} />
+						<Route path="/app/semesters" component={Semesters} />
+						<Route path="/app/placements" component={Placements} />
 					</Switch>
 				</div>
 			</>

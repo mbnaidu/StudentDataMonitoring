@@ -67,7 +67,8 @@ export default function Tables({ data }) {
 				percentage: member.percentage,
 				gender: member.gender,
 				backlogs: member.backlogs,
-				semesters: member.semesters
+				semesters: member.semesters,
+				placements: member.placements
 			})
 		})
 		setStudentData(sample);
@@ -76,41 +77,69 @@ export default function Tables({ data }) {
 	const renderExtraData = (index) => {
 		var allSemesterData = data[index]['semesters'].filter((semester) => semester['isAvailable'] === true)
 		return (
-			<React.Fragment key={index}>
-				<tr>
-					<td colSpan={6}>
-						<TableContainer component={Paper}>
-							<Table style={{ minWidth: "650" }} aria-label="simple table">
-								<TableHead>
-									<TableRow>
-										<TableCell align="center">Semester</TableCell>
-										<TableCell align="center">Subject 1</TableCell>
-										<TableCell align="center">Subject 2</TableCell>
-										<TableCell align="center">Subject 3</TableCell>
-										<TableCell align="center">Subject 4</TableCell>
-										<TableCell align="center">Subject 5</TableCell>
-										<TableCell align="center">Subject 6</TableCell>
-										<TableCell align="center">Subject 7</TableCell>
-										<TableCell align="center">Subject 8</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{allSemesterData.map((eachSemester) => (
-										<TableRow key={eachSemester.name}>
-											<TableCell key={eachSemester.name} align="center">{eachSemester.name}</TableCell>
-											{(eachSemester[eachSemester.name]).map((subject) => {
-												return (
-													<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade} {subject.noOfAttempts > 0 ? ` - ${subject.noOfAttempts}` : ''}</TableCell>
-												)
-											})}
+			<>
+				<React.Fragment key={index}>
+					<tr>
+						<td colSpan={6}>
+							<TableContainer component={Paper}>
+								<Table style={{ minWidth: "650" }} aria-label="simple table">
+									<TableHead>
+										<TableRow>
+											<TableCell align="center">Semester</TableCell>
+											<TableCell align="center">Subject 1</TableCell>
+											<TableCell align="center">Subject 2</TableCell>
+											<TableCell align="center">Subject 3</TableCell>
+											<TableCell align="center">Subject 4</TableCell>
+											<TableCell align="center">Subject 5</TableCell>
+											<TableCell align="center">Subject 6</TableCell>
+											<TableCell align="center">Subject 7</TableCell>
+											<TableCell align="center">Subject 8</TableCell>
 										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-						</TableContainer>
-					</td>
-				</tr>
-			</React.Fragment>
+									</TableHead>
+									<TableBody>
+										{allSemesterData.map((eachSemester) => (
+											<TableRow key={eachSemester.name}>
+												<TableCell key={eachSemester.name} align="center">{eachSemester.name}</TableCell>
+												{(eachSemester[eachSemester.name]).map((subject) => {
+													return (
+														<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade} {subject.noOfAttempts > 0 ? ` - ${subject.noOfAttempts}` : ''}</TableCell>
+													)
+												})}
+											</TableRow>
+										))}
+									</TableBody>
+								</Table>
+							</TableContainer>
+						</td>
+					</tr>
+				</React.Fragment>
+				<React.Fragment key={index}>
+					<tr>
+						<td colSpan={6}>
+							<TableContainer component={Paper}>
+								<Table style={{ minWidth: "650" }} aria-label="simple table">
+									<TableHead>
+										<TableRow>
+											<TableCell align="center">Company Name</TableCell>
+											<TableCell align="center">Package</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{data[index]['placements'].map((placement) => {
+											return (
+												<TableRow>
+													<TableCell align="center">{placement.companyName}</TableCell>
+													<TableCell align="center">{placement.package}</TableCell>
+												</TableRow>
+											)
+										})}
+									</TableBody>
+								</Table>
+							</TableContainer>
+						</td>
+					</tr>
+				</React.Fragment>
+			</>
 		)
 	}
 	return (
