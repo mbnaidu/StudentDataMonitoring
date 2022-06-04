@@ -25,7 +25,6 @@ export default function Dashboard(props) {
 	const [year, setYear] = useState('');
 	const [allSelectedStudents, setAllSelectedStudents] = useState(null);
 	const [membersData, setMembersData] = useState(null)
-	const genders = ([{ id: 'male', value: 'Male', color: 'primary' }, { id: 'female', value: 'Female', color: 'secondary' }]);
 	const handleSectionChange = (e) => {
 		setSection(e)
 	}
@@ -98,22 +97,6 @@ export default function Dashboard(props) {
 												</div>
 											</Button>
 										</Grid>
-										<Grid item xs={6}>
-											{genders.map((gender) => {
-												return (
-													<div key={gender.id} className={classes.pieChartLegendWrapper}>
-														<div className={classes.legendItemContainer}>
-															<Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
-																&nbsp;{`${gender.value}`}&nbsp;
-															</Typography>
-															<Typography>
-																&nbsp;{details[gender.id]}
-															</Typography>
-														</div>
-													</div>
-												)
-											})}
-										</Grid>
 									</Grid>
 								</div>
 								<Grid
@@ -123,20 +106,21 @@ export default function Dashboard(props) {
 									alignItems="center"
 								>
 									<Grid item xs={4}>
-										<div>
-											Class Pass%
+										<div
+											style={{ fontWeight: 'bold' }}>
+											Class
 										</div>
 										<div>{details.percentage}</div>
 									</Grid>
 									<Grid item xs={4}>
-										<Typography noWrap>
-											Male Pass%
+										<Typography noWrap style={{ fontWeight: 'bold' }}>
+											Male
 										</Typography>
 										<Typography size="md">{details.malePercentage}</Typography>
 									</Grid>
 									<Grid item xs={4}>
-										<Typography noWrap>
-											Female Pass%
+										<Typography noWrap style={{ fontWeight: 'bold' }}>
+											Female
 										</Typography>
 										<Typography size="md">{details.femalePercentage}</Typography>
 									</Grid>

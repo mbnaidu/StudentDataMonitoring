@@ -92,8 +92,9 @@ function Placements() {
                                 excelFileName ? excelFileName :
                                     <>
                                         <AddToPhotos />
-                                        <span className="text">
-                                            Upload Students Details Through Excel Sheet
+                                        <span className="text"
+                                            style={{ fontWeight: 'bold' }}>
+                                            PLACEMENTS
                                         </span>
                                         <label htmlFor="file-upload">Browse Files</label>
                                         <input type="file" id="file-upload" className="file-input" accept='.xlsx, .xls, .csv' onChange={handleExcelFileChange} disabled={section && year ? false : true} />

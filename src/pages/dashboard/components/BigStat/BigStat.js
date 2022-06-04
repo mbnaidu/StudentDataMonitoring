@@ -20,7 +20,8 @@ export default function BigStat(props) {
 		<Widget
 			header={
 				<div className={classes.title}>
-					<Typography variant="h5">{product}</Typography>
+					<Typography variant="h5"
+						style={{ fontWeight: 'bold' }}>{product}</Typography>
 				</div>
 			}
 			upperTitle
@@ -43,7 +44,8 @@ export default function BigStat(props) {
 							className={classnames(classes.profitArrow)}
 						/>
 					</Grid>
-					<Typography size="sm">
+					<Typography size="sm"
+						style={{ fontWeight: 'bold' }}>
 						All Pass
 					</Typography>
 				</div>
@@ -54,7 +56,8 @@ export default function BigStat(props) {
 							className={classnames(classes.profitArrowDanger)}
 						/>
 					</Grid>
-					<Typography size="sm">
+					<Typography size="sm"
+						style={{ fontWeight: 'bold' }}>
 						Backlogs
 					</Typography>
 				</div>

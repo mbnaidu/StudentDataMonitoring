@@ -64,7 +64,7 @@ export default function Tables({ data }) {
 			sample.push({
 				registerID: member.registerID,
 				fullName: member.fullName,
-				percentage: member.percentage,
+				percentage: parseFloat(member.obtainedCredits / member.totalCredits).toFixed(2),
 				gender: member.gender,
 				backlogs: member.backlogs,
 				semesters: member.semesters,
@@ -85,15 +85,15 @@ export default function Tables({ data }) {
 								<Table style={{ minWidth: "650" }} aria-label="simple table">
 									<TableHead>
 										<TableRow>
-											<TableCell align="center">Semester</TableCell>
-											<TableCell align="center">Subject 1</TableCell>
-											<TableCell align="center">Subject 2</TableCell>
-											<TableCell align="center">Subject 3</TableCell>
-											<TableCell align="center">Subject 4</TableCell>
-											<TableCell align="center">Subject 5</TableCell>
-											<TableCell align="center">Subject 6</TableCell>
-											<TableCell align="center">Subject 7</TableCell>
-											<TableCell align="center">Subject 8</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Semester</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 1</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 2</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 3</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 4</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 5</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 6</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 7</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 8</TableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>
@@ -120,8 +120,9 @@ export default function Tables({ data }) {
 								<Table style={{ minWidth: "650" }} aria-label="simple table">
 									<TableHead>
 										<TableRow>
-											<TableCell align="center">Company Name</TableCell>
-											<TableCell align="center">Package</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Company Name</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Package</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>Date</TableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>
@@ -129,7 +130,8 @@ export default function Tables({ data }) {
 											return (
 												<TableRow>
 													<TableCell align="center">{placement.companyName}</TableCell>
-													<TableCell align="center">{placement.package}</TableCell>
+													<TableCell align="center">{placement.package ? placement.package : 'No Data'}</TableCell>
+													<TableCell align="center">{placement.date ? placement.date.split(' ')[0] : 'No Data'}</TableCell>
 												</TableRow>
 											)
 										})}

@@ -256,14 +256,22 @@ export default function Semesters(props) {
 					label="Age"
 					onChange={(e) => setSelectedSem(e.target.value)}
 				>
-					<MenuItem value={'sem1Data'}>Sem - 1</MenuItem>
-					<MenuItem value={'sem2Data'}>Sem - 2</MenuItem>
-					<MenuItem value={'sem3Data'}>Sem - 3</MenuItem>
-					<MenuItem value={'sem4Data'}>Sem - 4</MenuItem>
-					<MenuItem value={'sem5Data'}>Sem - 5</MenuItem>
-					<MenuItem value={'sem6Data'}>Sem - 6</MenuItem>
-					<MenuItem value={'sem7Data'}>Sem - 7</MenuItem>
-					<MenuItem value={'sem8Data'}>Sem - 8</MenuItem>
+					<MenuItem value={'sem1Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 1</MenuItem>
+					<MenuItem value={'sem2Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 2</MenuItem>
+					<MenuItem value={'sem3Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 3</MenuItem>
+					<MenuItem value={'sem4Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 4</MenuItem>
+					<MenuItem value={'sem5Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 5</MenuItem>
+					<MenuItem value={'sem6Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 6</MenuItem>
+					<MenuItem value={'sem7Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 7</MenuItem>
+					<MenuItem value={'sem8Data'}
+						style={{ fontWeight: 'bold' }}>Sem - 8</MenuItem>
 				</Select>
 			</FormControl>
 		)
@@ -275,14 +283,16 @@ export default function Semesters(props) {
 				<Grid item xs={12} md={12} className={section && year ? null : 'disabledcursor'}>
 					<PageTitle title="Upload Student Excel Sheet" />
 					<div className="drop-container">
-						<div className="drop">
+						<div className="drop"
+							style={{ fontWeight: 'bold' }}>
 							{excelStatus === null ? <CircularProgress size={50} className={classes.loginLoader} /> : (
 								allSelectedStudents ? `Student Data Already Exists` :
 									(excelFileName ? excelFileName :
 										<>
 											<AddToPhotos />
-											<span className="text">
-												Upload Students Details Through Excel Sheet
+											<span className="text"
+												style={{ fontWeight: 'bold' }}>
+												STUDENTS
 											</span>
 											<label htmlFor="file-upload">Browse Files</label>
 											<input type="file" id="file-upload" className="file-input" accept='.xlsx, .xls, .csv' onChange={handleExcelFileChange} disabled={section && year ? false : true} />
@@ -303,8 +313,9 @@ export default function Semesters(props) {
 										<div className={`drop-container ${regularAvailable && selectedSem.length > 0 ? '' : 'disabledCursor'}`}>
 											<div className="pdfdrop">
 												{PDFFileName ? PDFFileName : (<>
-													<span className="text">
-														Upload Regular PDF
+													<span className="text"
+														style={{ fontWeight: 'bold' }}>
+														REGULAR PDF
 													</span>
 													<label htmlFor="file-uploads">Browse Files</label>
 													<input type="file" id="file-uploads" className="file-input" accept='.pdf' onChange={(e) => { handlePDFFileChange(e) }} disabled={!regularAvailable} /></>)}
@@ -323,8 +334,9 @@ export default function Semesters(props) {
 										<div className={`drop-container ${regularAvailable ? 'disabledCursor' : ''}`}>
 											<div className="pdfsupplydrop">
 												{PDFFileName ? PDFFileName : (<>
-													<span className="text">
-														Upload Supply PDF
+													<span className="text"
+														style={{ fontWeight: 'bold' }}>
+														SUPPLY PDF
 													</span>
 													<label htmlFor="file-supplyPDFupload">Browse Files</label>
 													<input type="file" id="file-supplyPDFupload" className="file-input" accept='.pdf' onChange={(e) => { handleSupplyPDFChange(e) }} disabled={regularAvailable} /></>)}
