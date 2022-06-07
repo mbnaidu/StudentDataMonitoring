@@ -7,7 +7,6 @@ import { CloudDownload } from '@material-ui/icons';
 const columns = [
 	{ label: 'Reg ID', name: 'registerID' },
 	{ label: 'Name', name: 'fullName' },
-	{ label: 'Percentage', name: 'percentage' },
 	{ label: 'Backlogs', name: 'backlogs' },
 	{ label: 'Gender', name: 'gender' },
 ];
@@ -64,7 +63,6 @@ export default function Tables({ data }) {
 			sample.push({
 				registerID: member.registerID,
 				fullName: member.fullName,
-				percentage: parseFloat(member.obtainedCredits / member.totalCredits).toFixed(2),
 				gender: member.gender,
 				backlogs: member.backlogs,
 				semesters: member.semesters,
@@ -94,6 +92,7 @@ export default function Tables({ data }) {
 											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 6</TableCell>
 											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 7</TableCell>
 											<TableCell align="center" style={{ fontWeight: 'bold' }}>Subject 8</TableCell>
+											<TableCell align="center" style={{ fontWeight: 'bold' }}>SCGPA</TableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>
@@ -105,6 +104,7 @@ export default function Tables({ data }) {
 														<TableCell key={JSON.stringify(subject)} align="center">{subject.subcode} - {subject.grade} {subject.noOfAttempts > 0 ? ` - ${subject.noOfAttempts}` : ''}</TableCell>
 													)
 												})}
+												<TableCell>{(eachSemester.OC / eachSemester.TC).toFixed(2)}</TableCell>
 											</TableRow>
 										))}
 									</TableBody>
